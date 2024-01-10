@@ -2,7 +2,8 @@ namespace TSM.TaskNS.Infrastructure;
 
 public class Category
 {
-	public int CategoryId { get; set; }
+	public int Id { get; set; }
 	// TODO - change to enam?
-	public string Name { get; set; }
+	public required string Name { get; set; }
+	public ICollection<Task>? Tasks { get; }
 }

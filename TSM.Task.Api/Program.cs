@@ -14,12 +14,28 @@ if (connectionString is null)
 }
 using (var tasksContext = new Infrastructure.TasksContext(connectionString))
 {
+	var category = new Infrastructure.Category
+	{
+		Name = "Warn"
+	};
+	Infrastructure.Task task = new Infrastructure.Task()
+	{
+		Title = "Fest",
+		Comment = "new",
+		Category = category
+	};
+	tasksContext.Categories.AddRange(category);
+	tasksContext.Tasks.AddRange(task);
+	tasksContext.SaveChanges();
+// }
+// using (var tasksContext = new Infrastructure.TasksContext(connectionString))
+// {
 	var tasks = tasksContext.Tasks.ToList();
 	Console.WriteLine("List:");
-	foreach (var task in tasks)
+	foreach (var el in tasks)
 	{
 		Console.WriteLine(
-			$"{task.Id}.{task.Title} - {task.CategoryId}"
+			$"{el.Id}.{el.Title} - {el}"
 		);
 	}
 }
@@ -28,7 +44,6 @@ using (var tasksContext = new Infrastructure.TasksContext(connectionString))
 app.MapGet("/", () => "Hello World!");
 
 app.Run();
-
 
 public class PostgreSettings
 {
