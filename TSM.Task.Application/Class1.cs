@@ -1,4 +1,4 @@
-﻿namespace TSM.Task.Application;
+﻿namespace TSM.TaskNS.Application;
 
 public class Class1
 {

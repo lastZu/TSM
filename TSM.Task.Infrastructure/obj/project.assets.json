@@ -269,6 +269,16 @@
             "related": ".xml"
           }
         }
+      },
+      "TSM.Task.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/TSM.Task.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/TSM.Task.Domain.dll": {}
+        }
       }
     }
   },
@@ -703,11 +713,17 @@
         "npgsql.entityframeworkcore.postgresql.nuspec",
         "postgresql.png"
       ]
+    },
+    "TSM.Task.Domain/1.0.0": {
+      "type": "project",
+      "path": "../TSM.Task.Domain/TSM.Task.Domain.csproj",
+      "msbuildProject": "../TSM.Task.Domain/TSM.Task.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.0"
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.0",
+      "TSM.Task.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -734,7 +750,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/jeg/prod/dotnet/projects/TSM/TSM.Task.Domain/TSM.Task.Domain.csproj": {
+              "projectPath": "/home/jeg/prod/dotnet/projects/TSM/TSM.Task.Domain/TSM.Task.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

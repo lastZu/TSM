@@ -1,4 +1,4 @@
-using Infrastructure = TSM.TaskNS.Infrastructure;
+using TSM.TaskNS.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
@@ -12,32 +12,32 @@ if (connectionString is null)
 {
 	throw new NullReferenceException("Connection string not specified");
 }
-using (var tasksContext = new Infrastructure.TasksContext(connectionString))
+using (var tasksContext = new TasksContext(connectionString))
 {
-	var category = new Infrastructure.Category
-	{
-		Name = "Warn"
-	};
-	Infrastructure.Task task = new Infrastructure.Task()
-	{
-		Title = "Fest",
-		Comment = "new",
-		Category = category
-	};
-	tasksContext.Categories.AddRange(category);
-	tasksContext.Tasks.AddRange(task);
-	tasksContext.SaveChanges();
-// }
-// using (var tasksContext = new Infrastructure.TasksContext(connectionString))
-// {
-	var tasks = tasksContext.Tasks.ToList();
-	Console.WriteLine("List:");
-	foreach (var el in tasks)
-	{
-		Console.WriteLine(
-			$"{el.Id}.{el.Title} - {el}"
-		);
-	}
+// 	var category = new Category
+// 	{
+// 		Name = "Warn"
+// 	};
+// 	Infrastructure.Task task = new Infrastructure.Task()
+// 	{
+// 		Title = "Fest",
+// 		Comment = "new",
+// 		Category = category
+// 	};
+// 	tasksContext.Categories.AddRange(category);
+// 	tasksContext.Tasks.AddRange(task);
+// 	tasksContext.SaveChanges();
+// // }
+// // using (var tasksContext = new Infrastructure.TasksContext(connectionString))
+// // {
+// 	var tasks = tasksContext.Tasks.ToList();
+// 	Console.WriteLine("List:");
+// 	foreach (var el in tasks)
+// 	{
+// 		Console.WriteLine(
+// 			$"{el.Id}.{el.Title} - {el}"
+// 		);
+// 	}
 }
 
 

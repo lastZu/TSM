@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    <ProjectReference Include="..\TSM.Task.Domain\TSM.Task.Domain.csproj" />
   </ItemGroup>
 
 </Project>
