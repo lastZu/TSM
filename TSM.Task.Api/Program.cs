@@ -1,4 +1,4 @@
-using TSM.TaskNS.Infrastructure;
+using TSM.Task.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();

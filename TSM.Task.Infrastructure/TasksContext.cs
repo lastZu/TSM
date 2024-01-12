@@ -2,13 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-using TSM.TaskNS.Domain;
+using TSM.Task.Domain;
 
-namespace TSM.TaskNS.Infrastructure;
+namespace TSM.Task.Infrastructure;
 public class TasksContext : DbContext
 {
-	public DbSet<Issue> Issues { get; set; }
+	public DbSet<Domain.Task> Tasks { get; set; }
 	public DbSet<Category> Categories { get; set; }
+	public DbSet<Priority> Priorities { get; set; }
 	private readonly string _connectionString;
 
 	public TasksContext(string connectionString)
@@ -27,7 +28,7 @@ public class TasksContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var taskBuilder = modelBuilder.Entity<Issue>();
+        var taskBuilder = modelBuilder.Entity<Domain.Task>();
 		taskBuilder
 			.Property(i => i.Dedline)
 			.HasColumnType("timestamp without time zone")

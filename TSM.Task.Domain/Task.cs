@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TSM.TaskNS.Domain;
+namespace TSM.Task.Domain;
 
-public class Issue
+public class Task
 {
 	public int Id { get; set; }
 	public required string Title { get; set; }
