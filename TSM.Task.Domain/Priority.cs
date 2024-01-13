@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace TSM.Task.Domain;
 
 public class Priority
