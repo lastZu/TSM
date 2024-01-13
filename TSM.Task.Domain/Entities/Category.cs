@@ -1,4 +1,4 @@
-namespace TSM.Task.Domain;
+namespace TSM.Task.Domain.Entities;
 
 public class Category
 {

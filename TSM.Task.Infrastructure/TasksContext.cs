@@ -13,6 +13,7 @@ public class TasksContext : DbContext
 	private readonly string _connectionString;
 
 	public TasksContext(string connectionString)
+	// : base(options)
 	{
 		_connectionString = connectionString;
 		Database.EnsureDeleted();
