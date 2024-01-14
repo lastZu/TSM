@@ -22,20 +22,16 @@ class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
 		builder.Property(t => t.Comment)
 			.HasMaxLength(1024);
 
-		builder.Property(t => t.Category)
-			.IsRequired();
-
-		builder.Property(t => t.Priority)
-			.IsRequired();
-
 		builder.HasOne(t => t.Category)
 			.WithMany()
 			.HasForeignKey(t => t.CategoryId)
+			.OnDelete(DeleteBehavior.NoAction)
 			.IsRequired();
 
 		builder.HasOne(t => t.Priority)
 			.WithMany()
 			.HasForeignKey(t => t.PriorityId)
+			.OnDelete(DeleteBehavior.NoAction)
 			.IsRequired();
     }
 }

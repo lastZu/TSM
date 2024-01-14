@@ -9,6 +9,12 @@ public class TaskContext : DbContext
 	public DbSet<Category> Categories { get; set; }
 	public DbSet<Priority> Priorities { get; set; }
 
+	public TaskContext()
+	{
+		Database.EnsureDeleted();
+		Database.EnsureCreated();
+	}
+
 	public TaskContext(DbContextOptions<TaskContext> options)
 		: base(options)
 	{
@@ -17,8 +23,12 @@ public class TaskContext : DbContext
 		Database.EnsureCreated();
 	}
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options) =>
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        // TODO - mv ServiceCollectionExtensions
+		options.UseNpgsql("Host=127.0.0.1;Port=5432;Database=TaskDB;Username=tasker;Password=pass");
 		options.UseSnakeCaseNamingConvention();
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
 		modelBuilder.ApplyConfigurationsFromAssembly(
