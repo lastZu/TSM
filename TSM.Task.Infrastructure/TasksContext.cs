@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using EFCore.NamingConventions;
+﻿using Microsoft.EntityFrameworkCore;
 
 using TSM.Task.Domain.Entities;
 
