@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EzhHUGPIJCC2nd/DB07ec82LJe6RtY2g0WPu6eAdgTtvzixI+k9/GWQrUsIoI/SMQLIJf5SA/GXfRFDJxwWRNQ==",
+  "dgSpecHash": "N7Lb5+B7/WtuGMOiaOWXKIpvp2z7KIn0kZpnmP21/wIDEOGzDwp4wsuvihxXqC/O0hifow82fZKur2U/XJ4ylQ==",
   "success": true,
   "projectFilePath": "/home/jeg/prod/dotnet/projects/TSM/TSM.Task.Infrastructure/TSM.Task.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "/home/jeg/.nuget/packages/efcore.namingconventions/8.0.0/efcore.namingconventions.8.0.0.nupkg.sha512",
     "/home/jeg/.nuget/packages/microsoft.entityframeworkcore/8.0.0/microsoft.entityframeworkcore.8.0.0.nupkg.sha512",
     "/home/jeg/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.0/microsoft.entityframeworkcore.abstractions.8.0.0.nupkg.sha512",
     "/home/jeg/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.0/microsoft.entityframeworkcore.analyzers.8.0.0.nupkg.sha512",
