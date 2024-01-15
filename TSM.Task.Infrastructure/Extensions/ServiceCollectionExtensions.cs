@@ -5,12 +5,12 @@ namespace TSM.Task.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-	public static void AddInfrastructureReferences(
-		this IServiceCollection serviceCollection,
-		string conectionString)
-	{
-		serviceCollection.AddDbContext<TaskContext>(
-			option => option.UseNpgsql(conectionString)
-		);
-	}
+    public static void AddInfrastructureReferences(
+        this IServiceCollection serviceCollection,
+        string connectionString)
+    {
+        serviceCollection
+            .AddDbContext<TaskContext>(option => option.UseNpgsql(connectionString)
+        );
+    }
 }

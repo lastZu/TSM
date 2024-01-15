@@ -9,12 +9,6 @@ public class TaskContext : DbContext
 	public DbSet<Category> Categories { get; set; }
 	public DbSet<Priority> Priorities { get; set; }
 
-	public TaskContext()
-	{
-		Database.EnsureDeleted();
-		Database.EnsureCreated();
-	}
-
 	public TaskContext(DbContextOptions<TaskContext> options)
 		: base(options)
 	{

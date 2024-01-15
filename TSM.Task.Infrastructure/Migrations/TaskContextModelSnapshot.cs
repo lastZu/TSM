@@ -72,7 +72,7 @@ namespace TSM.Task.Infrastructure.Migrations
                         .HasColumnType("character varying(1024)")
                         .HasColumnName("comment");
 
-                    b.Property<DateTime?>("Dedline")
+                    b.Property<DateTime?>("Deadline")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
