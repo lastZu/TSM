@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -7,7 +6,8 @@ class CategoryConfiguration : IEntityTypeConfiguration<Domain.Entities.Category>
 {
     public void Configure(EntityTypeBuilder<Domain.Entities.Category> builder)
     {
-        builder.ToTable("Category");
+        builder.ToTable("category");
+        
 		builder.HasKey(c => c.Id);
     }
 }

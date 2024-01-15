@@ -1,10 +1,9 @@
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using TSM.Task.Infrastructure.Extensions;
 
-namespace Test;
+namespace TSM.Task.Api;
 public class Startup
 {
     public void ConfigureServices(

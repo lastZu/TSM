@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -7,7 +6,8 @@ class PriorityConfiguration : IEntityTypeConfiguration<Domain.Entities.Priority>
 {
     public void Configure(EntityTypeBuilder<Domain.Entities.Priority> builder)
     {
-        builder.ToTable("Priority");
+        builder.ToTable("priority");
+        
 		builder.HasKey(p => p.Id);
     }
 }
