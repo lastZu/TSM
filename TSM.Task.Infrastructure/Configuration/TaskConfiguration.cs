@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace TSM.Task.Infrastructure.Configuration;
 class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
 {
-    public void Configure(EntityTypeBuilder<Domain.Entities.Task> builder)
-    {
-        builder.ToTable("task");
-        
+	public void Configure(EntityTypeBuilder<Domain.Entities.Task> builder)
+	{
+		builder.ToTable("task");
+
 		builder.HasKey(t => t.Id);
 
 		builder
@@ -38,5 +38,5 @@ class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
 			.HasForeignKey(t => t.PriorityId)
 			.OnDelete(DeleteBehavior.Cascade)
 			.IsRequired();
-    }
+	}
 }

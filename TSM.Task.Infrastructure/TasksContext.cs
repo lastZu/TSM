@@ -13,19 +13,17 @@ public class TaskContext : DbContext
 		: base(options)
 	{
 		// TODO - Remove before setup Migration
-		Database.EnsureDeleted();
-		Database.EnsureCreated();
+		// Database.EnsureDeleted();
+		// Database.EnsureCreated();
 	}
 
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        // TODO - mv ServiceCollectionExtensions
-		options.UseNpgsql("Host=127.0.0.1;Port=5432;Database=TaskDB;Username=tasker;Password=pass");
+	protected override void OnConfiguring(DbContextOptionsBuilder options)
+	{
 		options.UseSnakeCaseNamingConvention();
-    }
+	}
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder) =>
+	protected override void OnModelCreating(ModelBuilder modelBuilder) =>
 		modelBuilder.ApplyConfigurationsFromAssembly(
-            typeof(TaskContext).Assembly
-        );
+			typeof(TaskContext).Assembly
+		);
 }
