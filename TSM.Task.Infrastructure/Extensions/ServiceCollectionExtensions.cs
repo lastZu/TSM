@@ -10,6 +10,8 @@ public static class ServiceCollectionExtensions
 		string connectionString)
 	{
 		serviceCollection
-			.AddDbContext<TaskContext>(option => option.UseNpgsql(connectionString));
+			.AddDbContext<TaskContext>(option =>
+				option.UseNpgsql(connectionString, option =>
+					option.MigrationsAssembly("TSM.Task.Api")));
 	}
 }
