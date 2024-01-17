@@ -1,18 +1,30 @@
 using System;
 using System.Threading;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using TSM.Task.Api;
 using TSM.Task.Infrastructure.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
+// var builder = WebApplication.CreateBuilder(args);
+//builder.Services.AddInfrastructureReferences("conectionString");
+// var app = builder.Build();
+// app.MapGet("/", () => "Hello World!");
+// app.MigrateDatabase(CancellationToken.None);
+// app.Run();
 
-var startup = new Startup(builder.Configuration);
-startup.ConfigureServices(builder.Services);
+var builder = Host
+	.CreateDefaultBuilder()
+	.ConfigureWebHostDefaults(
+		builder => builder.UseStartup<Startup>()
+	);
 
-var app = builder.Build();
-app.MapGet("/", () => "Hello World!");
+var host = builder.Build();
+host.MigrateDatabase(CancellationToken.None);
+host.Run();
 
-app.MigrateDatabase(CancellationToken.None);
-
-app.Run();
+// builder.Host.ConfigureWebHostDefaults( //.WebHost.ConfigureServices(
+// 	hostBuilder => hostBuilder.UseStartup<Startup>()
+// );
+// var startup = new Startup(builder.Configuration);
+// startup.ConfigureServices(builder.Services);
