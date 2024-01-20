@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using TSM.Task.Infrastructure.Extensions;
 
 namespace TSM.Task.Api;
@@ -23,26 +24,16 @@ public class Startup
 
 	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 	{
-		// if (env.IsDevelopment()) ++
-		// {
-		//     app.UseDeveloperExceptionPage();
-		// }
-		// else
-		// {
-		//     app.UseExceptionHandler("/Error");
-		//     app.UseHsts();
-		// }
+		if (env.IsDevelopment())
+		{
+		    app.UseDeveloperExceptionPage();
+		}
+		else
+		{
+		    app.UseExceptionHandler("/Error");
+		    app.UseHsts();
+		}
 
-		// app.UseHttpsRedirection(); ++
-		// app.UseStaticFiles();
-
-		// app.UseRouting(); ++
-
-		// app.UseAuthorization();
-
-		// app.UseEndpoints(endpoints =>
-		// {
-		//     endpoints.MapRazorPages();
-		// });
+		app.UseHttpsRedirection();
 	}
 }

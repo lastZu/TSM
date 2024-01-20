@@ -12,9 +12,6 @@ public class TaskContext : DbContext
 	public TaskContext(DbContextOptions<TaskContext> options)
 		: base(options)
 	{
-		// TODO - Remove before setup Migration
-		// Database.EnsureDeleted();
-		// Database.EnsureCreated();
 	}
 
 	protected override void OnConfiguring(DbContextOptionsBuilder options)

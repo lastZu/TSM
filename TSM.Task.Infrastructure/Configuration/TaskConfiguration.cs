@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -18,8 +17,7 @@ class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
 		builder
 			.Property(t => t.Deadline)
 			.HasColumnType("timestamp without time zone")
-			.HasDefaultValue(DateTime.Now)
-			.IsRequired();
+			.IsRequired(false);
 
 		builder
 			.Property(t => t.Comment)
