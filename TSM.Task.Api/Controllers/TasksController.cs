@@ -39,7 +39,9 @@ public class TasksController : ControllerBase
 		{
 			Id =  id
 		};
-		return _taskService.GetById(request).ToString();
+		var res = _taskService.GetById(request).ToString();
+		_taskService.Save();
+		return res;
 	}
 
 	[HttpPut]
@@ -50,7 +52,9 @@ public class TasksController : ControllerBase
 			Id = id,
 			Title = name
 		};
-		return _taskService.Update(request).ToString();
+		var res = _taskService.Update(request).ToString();
+		_taskService.Save();
+		return res;
 	}
 
 	[HttpDelete]
@@ -61,5 +65,6 @@ public class TasksController : ControllerBase
 			Id =  id
 		};
 		_taskService.Delete(request);
+		_taskService.Save();
 	}
 }
