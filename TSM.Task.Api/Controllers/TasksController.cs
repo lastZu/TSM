@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 
@@ -18,9 +19,9 @@ public class TasksController : ControllerBase
 	}
 
 	[HttpPost]
-	public string Post()
+	public CreateTaskResponse Post()
 	{
-		var request = new CreateTaskRerquest
+		var request = new CreateTaskRequest
 		{
 			Title = "Rest",
 			Deadline = DateTime.Now,
@@ -29,7 +30,13 @@ public class TasksController : ControllerBase
 		};
 		var response = _taskService.Create(request);
 		_taskService.Save();
-		return response.ToString();
+		return response;
+	}
+
+	[HttpGet]
+	public List<ReadTaskResponse> GetAll()
+	{
+		return _taskService.GetAll();
 	}
 
 	[HttpGet("{id=Guid}")]
@@ -45,16 +52,15 @@ public class TasksController : ControllerBase
 	}
 
 	[HttpPut]
-	public string UpdateTask(Guid id, string name)
+	public UpdateTaskResponcse UpdateTask()
 	{
 		var request = new UpdateTaskRequest
 		{
-			Id = id,
-			Title = name
+			Title = "name"
 		};
-		var res = _taskService.Update(request).ToString();
+		var response = _taskService.Update(request);
 		_taskService.Save();
-		return res;
+		return response;
 	}
 
 	[HttpDelete]

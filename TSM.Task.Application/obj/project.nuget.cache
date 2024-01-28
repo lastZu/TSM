@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "vGERtmt3eLBNVdkP/1C0CnJt+hH3eC7sJVxyQBbni97Iuu/L8blaNEjorZ/433ZbsNejy86oVKvOgsOIiljXQQ==",
+  "dgSpecHash": "FzfdgyNvJ1WJjK7iY/kLevWbpw0G3d1LrAtR5EyA1pQMM99+1XizZcSYlnhYcZxqgngs6uDFGsEACcVMuUFiWg==",
   "success": true,
   "projectFilePath": "/home/jeg/prod/dotnet/projects/TSM/TSM.Task.Application/TSM.Task.Application.csproj",
   "expectedPackageFiles": [
+    "/home/jeg/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/home/jeg/.nuget/packages/efcore.namingconventions/8.0.0/efcore.namingconventions.8.0.0.nupkg.sha512",
+    "/home/jeg/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
     "/home/jeg/.nuget/packages/microsoft.entityframeworkcore/8.0.0/microsoft.entityframeworkcore.8.0.0.nupkg.sha512",
     "/home/jeg/.nuget/packages/microsoft.entityframeworkcore.abstractions/8.0.0/microsoft.entityframeworkcore.abstractions.8.0.0.nupkg.sha512",
     "/home/jeg/.nuget/packages/microsoft.entityframeworkcore.analyzers/8.0.0/microsoft.entityframeworkcore.analyzers.8.0.0.nupkg.sha512",
