@@ -19,15 +19,8 @@ public class TasksController : ControllerBase
 	}
 
 	[HttpPost]
-	public CreateTaskResponse Post()
+	public CreateTaskResponse Post(CreateTaskRequest request)
 	{
-		var request = new CreateTaskRequest
-		{
-			Title = "Rest",
-			Deadline = DateTime.Now,
-			CategoryId = 1,
-			PriorityId = 1
-		};
 		var response = _taskService.Create(request);
 		_taskService.Save();
 		return response;
@@ -52,18 +45,14 @@ public class TasksController : ControllerBase
 	}
 
 	[HttpPut]
-	public UpdateTaskResponcse UpdateTask()
+	public UpdateTaskResponcse UpdateTask(UpdateTaskRequest request)
 	{
-		var request = new UpdateTaskRequest
-		{
-			Title = "name"
-		};
 		var response = _taskService.Update(request);
 		_taskService.Save();
 		return response;
 	}
 
-	[HttpDelete]
+	[HttpDelete("{id=Guid}")]
 	public void DeleteTask(Guid id)
 	{
 		var request = new DeleteTaskRerquest
