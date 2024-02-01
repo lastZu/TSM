@@ -29,11 +29,11 @@ public class Startup
 		services.AddTransient<TasksController>();
 		services.AddControllers();
 
-		services.AddSwaggerGen(options =>
-			options.SwaggerDoc(
-				"v1",
-				new OpenApiInfo { Title = "Tasks API", Description = "Keep track of your tasks", Version = "v1" }
-		));
+		services.AddTaskApiDocumentation(
+			title: "Tasks API",
+			description: "Keep track of your tasks",
+			version: "v1"
+		);
 	}
 
 	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -45,10 +45,7 @@ public class Startup
 
 		app.UseRouting();
 
-		app.UseSwagger();
-		app.UseSwaggerUI(options =>
-			options.SwaggerEndpoint("/swagger/v1/swagger.json", "Tasks API V1")
-		);
+		app.UseSwaggerForTasks("Tasks API V1");
 
 		app.UseEndpoints(endpoint =>
 		{

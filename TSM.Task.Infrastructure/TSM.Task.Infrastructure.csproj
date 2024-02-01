@@ -14,6 +14,8 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+
     <ProjectReference Include="..\TSM.Task.Domain\TSM.Task.Domain.csproj" />
   </ItemGroup>
 

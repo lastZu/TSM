@@ -13,7 +13,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
 
     <ProjectReference Include="../TSM.Task.Infrastructure/TSM.Task.Infrastructure.csproj" />
     <ProjectReference Include="../TSM.Task.Application/TSM.Task.Application.csproj" />
