@@ -9,9 +9,7 @@ public class CreateTaskResponse
 	public DateTime? Deadline { get; set; }
 	public string Comment { get; set; }
 
-	public byte? CategoryId { get; set; }
 	public string Category { get; set; }
 
-	public byte? PriorityId { get; set; }
 	public string Priority { get; set; }
 }

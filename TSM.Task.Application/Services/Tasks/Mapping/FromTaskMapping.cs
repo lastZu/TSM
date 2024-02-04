@@ -7,19 +7,19 @@ namespace TSM.Task.Application.Services.Tasks.Mapping;
 
 public static class FromTaskMapping
 {
-	public static List<ReadTaskResponse> ToResponse(this List<TaskEntity> tasks)
+	public static List<GetTaskByIdResponse> ToResponse(this List<TaskEntity> tasks)
 	{
-		return ReadTaskResponseMapper<ReadTaskResponse>()
-			.Map<List<ReadTaskResponse>>(tasks);
+		return TaskResponseMapper<GetTaskByIdResponse>()
+			.Map<List<GetTaskByIdResponse>>(tasks);
 	}
 
 	public static T ToResponse<T>(this TaskEntity task)
 	{
-		return ReadTaskResponseMapper<T>()
+		return TaskResponseMapper<T>()
 			.Map<T>(task);
 	}
 
-	private static IMapper ReadTaskResponseMapper<T>()
+	private static IMapper TaskResponseMapper<T>()
 	{
 		var config = new MapperConfiguration(
 			config => config.CreateMap<TaskEntity, T>()

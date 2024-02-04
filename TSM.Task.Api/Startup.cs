@@ -26,8 +26,11 @@ public class Startup
 		);
 
 		services.AddTransient<ITaskService, TasksService>();
-		services.AddTransient<TasksController>();
-		services.AddControllers();
+		services.AddTransient<TaskController>();
+
+		services.AddMvcCore()
+			.AddApiExplorer()
+			.AddControllersAsServices();
 
 		services.AddTaskApiDocumentation(
 			title: "Tasks API",

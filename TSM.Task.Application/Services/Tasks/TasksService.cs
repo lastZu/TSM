@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-
+using System.Threading;
+using System.Threading.Tasks;
 using TSM.Task.Application.Services.Tasks.Models;
 using TSM.Task.Application.Services.Tasks.Mapping;
 using TSM.Task.Domain.Entities;
@@ -14,19 +15,16 @@ namespace TSM.Task.Application.Services.Tasks;
 public class TasksService : ITaskService
 {
 	private readonly TaskContext _taskContext;
+	private readonly DbSet<TaskEntity> _tasks;
 
 	public TasksService(TaskContext taskContext)
 	{
 		_taskContext = taskContext;
+		_tasks = _taskContext.Set<TaskEntity>();
 	}
 
-	public CreateTaskResponse Create(CreateTaskRequest request)
+	public async Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken = default)
 	{
-		if (request == null)
-		{
-			throw new ArgumentNullException();
-		}
-
 		var task = request.ToTask();
 		if (!IsValidCategoryId(task.CategoryId))
 		{
@@ -37,57 +35,37 @@ public class TasksService : ITaskService
 			throw new ArgumentNullException($"Priority id - {task.PriorityId} not exist");
 		}
 
-		_taskContext.Tasks.Add(task);
-		return task.ToResponse<CreateTaskResponse>();
+		var entry = await _tasks
+			.AddAsync(task, cancellationToken);
+
+		Save(cancellationToken);
+
+		return entry.Entity.ToResponse<CreateTaskResponse>();
 	}
 
-	public void Delete(DeleteTaskRerquest request)
+	public async Task<List<GetTaskByIdResponse>> GetAll(CancellationToken cancellationToken = default)
 	{
-		if (request == null)
-		{
-			throw new ArgumentNullException();
-		}
-
-		var task = GetByIdFromContext(request.Id).FirstOrDefault();
-		if (task == null)
-		{
-			throw new ArgumentOutOfRangeException("Task does not exists");
-		}
-		_taskContext.Tasks.Remove(task);
-	}
-
-	public List<ReadTaskResponse> GetAll()
-	{
-		var tasks = _taskContext.Tasks
-			.Include(tast => tast.Category)
-			.Include(task => task.Priority)
-			.ToList();
-		return tasks.ToResponse();
-	}
-
-	public ReadTaskResponse GetById(ReadTaskRerquest request)
-	{
-		if (request == null)
-		{
-			throw new ArgumentNullException();
-		}
-
-		var task = GetByIdFromContext(request.Id)
+		return await _tasks
 			.AsNoTracking()
-			.FirstOrDefault();
-		if (task == null)
-		{
-			return null;
-		}
-		return task.ToResponse<ReadTaskResponse>();
+			.Include(task => task.Category)
+			.Include(task => task.Priority)
+			.Select(task => task.ToResponse<GetTaskByIdResponse>())
+			.ToListAsync(cancellationToken);
 	}
 
-	public UpdateTaskResponcse Update(UpdateTaskRequest request)
+	public async Task<GetTaskByIdResponse> GetById(GetTaskByIdRequest request, CancellationToken cancellationToken = default)
 	{
-		if (request == null)
-		{
-			throw new ArgumentNullException();
-		}
+		return await _tasks
+			.AsNoTracking()
+			.Include(task => task.Category)
+			.Include(task => task.Priority)
+			.Where(task => task.Id == request.Id)
+			.Select(task => task.ToResponse<GetTaskByIdResponse>())
+			.FirstOrDefaultAsync(cancellationToken);
+	}
+
+	public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken)
+	{
 		if (!IsValidCategoryId(request.CategoryId))
 		{
 			throw new ArgumentNullException($"Category id - {request.CategoryId} not exist");
@@ -97,22 +75,40 @@ public class TasksService : ITaskService
 			throw new ArgumentNullException($"Priority id - {request.PriorityId} not exist");
 		}
 
-		var task = request.ToTask();
-		_taskContext.Tasks.Update(task);
-		return task.ToResponse<UpdateTaskResponcse>();
+		var task = await _tasks
+			.Where(t => t.Id == request.Id)
+			.FirstOrDefaultAsync(cancellationToken);
+
+		task.Title = request.Title;
+		task.Comment = request.Comment;
+		task.Deadline = request.Deadline;
+		task.CategoryId = request.CategoryId;
+		task.PriorityId = request.PriorityId;
+
+		Save(cancellationToken);
+
+		return task.ToResponse<UpdateTaskResponse>();
 	}
 
-	public void Save()
+	public async void Delete(DeleteTaskRequest request, CancellationToken cancellationToken)
 	{
-		_taskContext.SaveChanges();
+		var task = await _taskContext.Tasks
+			.AsNoTracking()
+			.Where(task => task.Id == request.Id)
+			.FirstOrDefaultAsync();
+		if (task is null)
+		{
+			throw new ArgumentOutOfRangeException("Task does not exists");
+		}
+
+		_taskContext.Tasks.Remove(task);
+
+		Save(cancellationToken);
 	}
 
-	private IQueryable<TaskEntity> GetByIdFromContext(Guid id)
+	private void Save(CancellationToken cancellationToken)
 	{
-		return _taskContext.Tasks
-			.Include(task => task.Category)
-			.Include(task => task.Priority)
-			.Where(task => task.Id == id);
+		_taskContext.SaveChangesAsync(cancellationToken);
 	}
 
 	private bool IsValidId<TEntity>(Func<TEntity, bool> func) where TEntity : class
@@ -120,12 +116,12 @@ public class TasksService : ITaskService
 		var entity = _taskContext.Set<TEntity>()
 			.Where(func)
 			.FirstOrDefault();
-		return entity != null;
+		return entity is not null;
 	}
 
 	private bool IsValidCategoryId(byte? id)
 	{
-		if (id == null)
+		if (id is null)
 		{
 			return false;
 		}
@@ -134,7 +130,7 @@ public class TasksService : ITaskService
 
 	private bool IsValidPriorityId(byte? id)
 	{
-		if (id == null)
+		if (id is null)
 		{
 			return false;
 		}
