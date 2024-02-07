@@ -7,12 +7,30 @@ namespace TSM.Task.Application.Services.Tasks.Mapping;
 
 public static class FromTaskMapping
 {
-	public static List<GetTaskByIdResponse> ToResponse(this List<TaskEntity> tasks)
+	public static GetTaskByIdResponse ToResponse(this TaskEntity task)
 	{
-		return TaskResponseMapper<GetTaskByIdResponse>()
-			.Map<List<GetTaskByIdResponse>>(tasks);
-	}
+		var category = new CategoryDto
+		{
+			Id = task.CategoryId,
+			Name = task.Category.Name,
+		};
 
+		var priority = new PriorityDto
+		{
+			Id = task.PriorityId,
+			Name = task.Priority.Name,
+		};
+
+		return new GetTaskByIdResponse
+		{
+			Id = task.Id,
+			Title = task.Title,
+			Deadline = task.Deadline,
+			Comment = task.Comment,
+			Category = category,
+			Priority = priority,
+		};
+	}
 	public static T ToResponse<T>(this TaskEntity task)
 	{
 		return TaskResponseMapper<T>()
