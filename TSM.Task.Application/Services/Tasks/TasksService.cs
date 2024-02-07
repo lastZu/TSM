@@ -64,7 +64,7 @@ public class TasksService : ITaskService
 			.FirstOrDefaultAsync(cancellationToken);
 	}
 
-	public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken)
+	public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken = default)
 	{
 		if (!IsValidCategoryId(request.CategoryId))
 		{
@@ -90,7 +90,7 @@ public class TasksService : ITaskService
 		return task.ToResponse<UpdateTaskResponse>();
 	}
 
-	public async void Delete(DeleteTaskRequest request, CancellationToken cancellationToken)
+	public async void Delete(DeleteTaskRequest request, CancellationToken cancellationToken = default)
 	{
 		var task = await _taskContext.Tasks
 			.AsNoTracking()
@@ -114,8 +114,8 @@ public class TasksService : ITaskService
 	private bool IsValidId<TEntity>(Func<TEntity, bool> func) where TEntity : class
 	{
 		var entity = _taskContext.Set<TEntity>()
-			.Where(func)
-			.FirstOrDefault();
+			.FirstOrDefault(func);
+
 		return entity is not null;
 	}
 

@@ -12,7 +12,7 @@ namespace TSM.Task.Api.Controllers;
 [Route("[controller]")]
 public class TaskController : ControllerBase
 {
-	private ITaskService _taskService;
+	private readonly ITaskService _taskService;
 
 	public TaskController(ITaskService taskService)
 	{
