@@ -9,47 +9,55 @@ using TSM.Task.Application.Services.Tasks.Models;
 namespace TSM.Task.Api.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("tasks")]
 public class TaskController : ControllerBase
 {
-	private readonly ITaskService _taskService;
+    private readonly ITaskService _taskService;
 
-	public TaskController(ITaskService taskService)
-	{
-		_taskService = taskService;
-	}
+    public TaskController(ITaskService taskService)
+    {
+        _taskService = taskService;
+    }
 
-	[HttpGet]
-	public async Task<List<GetTaskByIdResponse>> GetAll()
-	{
-		return await _taskService.GetAll();
-	}
+    [HttpGet]
+    public async Task<List<GetTaskByIdResponse>> GetAll()
+    {
+        return await _taskService.GetAll();
+    }
 
-	[HttpGet("{id:Guid}")]
-	public async Task<GetTaskByIdResponse> GetById(Guid id)
-	{
-		var request = new GetTaskByIdRequest
-		{
-			Id =  id
-		};
-		return await _taskService.GetById(request);
-	}
+    [HttpGet("{id:guid}")]
+    public async Task<GetTaskByIdResponse> GetById(Guid id)
+    {
+        var request = new GetTaskByIdRequest
+        {
+            Id =  id
+        };
 
-	[HttpPost]
-	public async Task<CreateTaskResponse> Create(CreateTaskRequest request)
-	{
-		return await _taskService.Create(request);
-	}
+        return await _taskService.GetById(request);
+    }
 
-	[HttpPut]
-	public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request)
-	{
-		return await _taskService.Update(request);
-	}
+    [HttpPost]
+    public async Task<CreateTaskResponse> Create(CreateTaskRequest request)
+    {
+        return await _taskService.Create(request);
+    }
 
-	[HttpDelete]
-	public void Delete(DeleteTaskRequest request)
-	{
-		_taskService.Delete(request);
-	}
+    [HttpPut("{id:guid}")]
+    public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request)
+    {
+        return await _taskService.Update(request);
+    }
+
+    [HttpDelete("{id:guid}")]
+    public async void Delete(Guid id)
+    {
+        var request = new DeleteTaskRequest
+        {
+            Id = id
+        };
+
+        await System.Threading.Tasks.Task.Run(
+            () => _taskService.Delete(request)
+        );
+    }
 }
