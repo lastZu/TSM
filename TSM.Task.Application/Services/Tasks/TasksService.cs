@@ -78,22 +78,19 @@ public class TasksService : ITaskService
 		return _mapper.Map<UpdateTaskResponse>(task);
 	}
 
-    public async Task<bool> Delete(DeleteTaskRequest request, CancellationToken cancellationToken = default)
+    public async System.Threading.Tasks.Task Delete(DeleteTaskRequest request, CancellationToken cancellationToken = default)
     {
-        var task = await _taskContext.Tasks
-            .AsNoTracking()
-            .Where(task => task.Id == request.Id)
-            .FirstOrDefaultAsync();
+        var task = await _tasksSet
+	        .Where(task => task.Id == request.Id)
+            .FirstOrDefaultAsync(cancellationToken);
 
         if (task is null)
         {
             throw new ArgumentOutOfRangeException($"Task with id - {request.Id} does not exists");
         }
 
-        _taskContext.Tasks.Remove(task);
+        _tasksSet.Remove(task);
 
         await _taskContext.SaveChangesAsync(cancellationToken);
-
-        return true;
     }
 }
