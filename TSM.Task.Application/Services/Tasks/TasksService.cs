@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using TSM.Task.Application.Services.Tasks.Models;
 using TSM.Task.Application.Services.Tasks.Mapping;
 using TSM.Task.Domain.Entities;
@@ -16,31 +17,25 @@ public class TasksService : ITaskService
 {
 	private readonly TaskContext _taskContext;
 	private readonly DbSet<TaskEntity> _tasks;
+	private readonly IMapper _mapper;
 
-	public TasksService(TaskContext taskContext)
+	public TasksService(TaskContext taskContext, IMapper mapper)
 	{
 		_taskContext = taskContext;
+		_mapper = mapper;
+		
 		_tasks = _taskContext.Set<TaskEntity>();
 	}
 
 	public async Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken = default)
 	{
-		var task = request.ToTask();
-		if (!IsValidCategoryId(task.CategoryId))
-		{
-			throw new ArgumentNullException($"Category id - {task.CategoryId} not exist");
-		}
-		if (!IsValidPriorityId(task.PriorityId))
-		{
-			throw new ArgumentNullException($"Priority id - {task.PriorityId} not exist");
-		}
+		var task = _mapper.Map<TaskEntity>(request);
 
-		var entry = await _tasks
-			.AddAsync(task, cancellationToken);
+		await _tasks.AddAsync(task, cancellationToken);
 
-		Save(cancellationToken);
+		await _taskContext.SaveChangesAsync(cancellationToken);
 
-		return entry.Entity.ToResponse<CreateTaskResponse>();
+		return _mapper.Map<CreateTaskResponse>(task);
 	}
 
 	public async Task<List<GetTaskByIdResponse>> GetAll(CancellationToken cancellationToken = default)
@@ -66,28 +61,22 @@ public class TasksService : ITaskService
 
 	public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken = default)
 	{
-		if (!IsValidCategoryId(request.CategoryId))
-		{
-			throw new ArgumentNullException($"Category id - {request.CategoryId} not exist");
-		}
-		if (!IsValidPriorityId(request.PriorityId))
-		{
-			throw new ArgumentNullException($"Priority id - {request.PriorityId} not exist");
-		}
-
 		var task = await _tasks
 			.Where(t => t.Id == request.Id)
 			.FirstOrDefaultAsync(cancellationToken);
 
-		task.Title = request.Title;
-		task.Comment = request.Comment;
-		task.Deadline = request.Deadline;
-		task.CategoryId = request.CategoryId;
-		task.PriorityId = request.PriorityId;
+		if (task is null)
+		{
+			throw new ApplicationException($"Task {request.Id} is not found");
+		}
 
-		Save(cancellationToken);
+		_mapper.Map(request, task);
 
-		return task.ToResponse<UpdateTaskResponse>();
+		_tasks.Update(task);
+
+		await _taskContext.SaveChangesAsync(cancellationToken);
+
+		return _mapper.Map<UpdateTaskResponse>(task);
 	}
 
 	public async void Delete(DeleteTaskRequest request, CancellationToken cancellationToken = default)

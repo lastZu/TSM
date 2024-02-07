@@ -1,58 +1,87 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-
 using TSM.Task.Api.Controllers;
 using TSM.Task.Application.Services.Tasks;
 using TSM.Task.Infrastructure.Extensions;
 
 namespace TSM.Task.Api;
+
 public class Startup
 {
-	public IConfiguration Configuration { get; }
+    private const string AssemblyPrefix = "TSM.Task";
 
-	public Startup(IConfiguration configuration)
-	{
-		Configuration = configuration;
-	}
+    public IConfiguration Configuration { get; }
 
-	public void ConfigureServices(IServiceCollection services)
-	{
-		services.AddInfrastructureReferences(
-			"Host=127.0.0.1;Port=5432;Database=TaskDB;Username=tasker;Password=pass"
-		);
+    public Startup(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
 
-		services.AddTransient<ITaskService, TasksService>();
-		services.AddTransient<TaskController>();
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services.AddInfrastructureReferences(
+            "Host=127.0.0.1;Port=5432;Database=TaskDB;Username=postgres;Password=qwer12345"
+        );
 
-		services.AddMvcCore()
-			.AddApiExplorer()
-			.AddControllersAsServices();
+        services.AddTransient<ITaskService, TasksService>();
+        services.AddTransient<TaskController>();
 
-		services.AddTaskApiDocumentation(
-			title: "Tasks API",
-			description: "Keep track of your tasks",
-			version: "v1"
-		);
-	}
+        services.AddMvcCore()
+            .AddApiExplorer()
+            .AddControllersAsServices();
 
-	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-	{
-		if (env.IsDevelopment())
-		{
-			app.UseDeveloperExceptionPage();
-		}
+        services.AddAutoMapper(AssemblyPrefix);
 
-		app.UseRouting();
+        services.AddTaskApiDocumentation(
+            title: "Tasks API",
+            description: "Keep track of your tasks",
+            version: "v1"
+        );
+    }
 
-		app.UseSwaggerForTasks("Tasks API V1");
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+        if (env.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
 
-		app.UseEndpoints(endpoint =>
-		{
-			endpoint.MapControllers();
-		});
-	}
+        app.UseRouting();
+
+        app.UseSwaggerForTasks("Tasks API V1");
+
+        app.UseEndpoints(endpoint => { endpoint.MapControllers(); });
+    }
+}
+
+public static class AutoMapperExtensions
+{
+    public static IServiceCollection AddAutoMapper(this IServiceCollection services, string prefixAssemblyName)
+    {
+        var assemblies = DependencyContext.Default.RuntimeLibraries
+            .SelectMany(lib => lib
+                .GetDefaultAssemblyNames(DependencyContext.Default)
+                .Where(assemblyName => assemblyName.FullName.StartsWith(prefixAssemblyName))
+                .Select(Assembly.Load))
+            .ToArray();
+
+        var mapper = new Mapper(new MapperConfiguration(ctx =>
+        {
+            ctx.AllowNullCollections = true;
+            ctx.AddMaps(assemblies);
+        }));
+
+        services.AddSingleton<IMapper>(mapper);
+
+        return services;
+    }
 }
