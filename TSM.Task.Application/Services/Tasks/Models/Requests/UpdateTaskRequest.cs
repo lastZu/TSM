@@ -1,9 +1,11 @@
 using System;
 
-namespace TSM.Task.Application.Services.Tasks.Models;
+namespace TSM.Task.Application.Services.Tasks.Models.Requests;
 
-public class CreateTaskRequest
+public class UpdateTaskRequest
 {
+	public Guid Id { get; set; }
+
 	public string Title { get; set; }
 
 	public DateTime? Deadline { get; set; }

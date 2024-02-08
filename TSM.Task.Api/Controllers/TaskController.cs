@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using TSM.Task.Application.Services.Tasks;
-using TSM.Task.Application.Services.Tasks.Models;
+using TSM.Task.Application.Services.Tasks.Models.Requests;
+using TSM.Task.Application.Services.Tasks.Models.Responses;
 
 namespace TSM.Task.Api.Controllers;
 
@@ -20,36 +22,40 @@ public class TaskController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<GetTaskByIdResponse>> GetAll()
+    public async Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken)
     {
-        return await _taskService.GetAll();
+        return await _taskService.GetAll(cancellationToken);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<GetTaskByIdResponse> GetById(Guid id)
+    public async Task<TaskByIdResponse> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var request = new GetTaskByIdRequest
         {
             Id =  id
         };
 
-        return await _taskService.GetById(request);
+        return await _taskService.GetById(request, cancellationToken);
     }
 
     [HttpPost]
-    public async Task<CreateTaskResponse> Create(CreateTaskRequest request)
+    public async Task<CreateTaskResponse> Create([FromBody] CreateTaskRequest request, CancellationToken cancellationToken)
     {
-        return await _taskService.Create(request);
+        return await _taskService.Create(request, cancellationToken);
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request)
+    public async Task<UpdateTaskResponse> Update(
+        [FromRoute] Guid id,
+        [FromBody] UpdateTaskRequest request,
+        CancellationToken cancellationToken)
     {
-        return await _taskService.Update(request);
+        request.Id = id;
+        return await _taskService.Update(request, cancellationToken);
     }
 
     [HttpDelete("{id:guid}")]
-    public async void Delete(Guid id)
+    public async System.Threading.Tasks.Task Delete([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var request = new DeleteTaskRequest
         {
@@ -57,7 +63,7 @@ public class TaskController : ControllerBase
         };
 
         await System.Threading.Tasks.Task.Run(
-            () => _taskService.Delete(request)
+            () => _taskService.Delete(request, cancellationToken)
         );
     }
 }

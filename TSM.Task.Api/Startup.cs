@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
 using TSM.Task.Api.Controllers;
 using TSM.Task.Application.Services.Tasks;
+using TSM.Task.Api.Extensions;
 using TSM.Task.Infrastructure.Extensions;
 
 namespace TSM.Task.Api;
@@ -29,7 +30,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddInfrastructureReferences(
-            "Host=127.0.0.1;Port=5432;Database=TaskDB;Username=postgres;Password=qwer12345"
+            "Host=127.0.0.1;Port=5432;Database=TaskDB;Username=tasker;Password=pass"
         );
 
         services.AddTransient<ITaskService, TasksService>();

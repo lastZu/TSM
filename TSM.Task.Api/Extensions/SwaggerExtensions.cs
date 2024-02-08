@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace TSM.Task.Infrastructure.Extensions;
+namespace TSM.Task.Api.Extensions;
 
 public static class SwaggerExtensions
 {
