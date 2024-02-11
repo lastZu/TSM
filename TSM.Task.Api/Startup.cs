@@ -13,6 +13,7 @@ using TSM.Task.Api.Controllers;
 using TSM.Task.Application.Services.Tasks;
 using TSM.Task.Api.Extensions;
 using TSM.Task.Infrastructure.Extensions;
+using TSM.Task.Application.Services.Tags;
 
 namespace TSM.Task.Api;
 
@@ -33,8 +34,10 @@ public class Startup
             "Host=127.0.0.1;Port=5432;Database=TaskDB;Username=tasker;Password=pass"
         );
 
-        services.AddTransient<ITaskService, TasksService>();
+        services.AddTransient<ITaskService, TaskService>();
         services.AddTransient<TaskController>();
+        services.AddTransient<ITagService, TagService>();
+        services.AddTransient<TagController>();
 
         services.AddMvcCore()
             .AddApiExplorer()

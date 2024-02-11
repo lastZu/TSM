@@ -1,4 +1,4 @@
-namespace TSM.Task.Application.Services.Categories.Models;
+namespace TSM.Task.Application.Services.Categories;
 
 public class CategoryDto
 {

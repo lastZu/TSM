@@ -51,6 +51,7 @@ public class TaskController : ControllerBase
         CancellationToken cancellationToken)
     {
         request.Id = id;
+
         return await _taskService.Update(request, cancellationToken);
     }
 
@@ -63,7 +64,8 @@ public class TaskController : ControllerBase
         };
 
         await System.Threading.Tasks.Task.Run(
-            () => _taskService.Delete(request, cancellationToken)
+            () => _taskService.Delete(request, cancellationToken),
+            cancellationToken
         );
     }
 }

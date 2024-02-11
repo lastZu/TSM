@@ -15,4 +15,6 @@ public class CreateTaskResponse
     public string Category { get; set; }
 
     public string Priority { get; set; }
+
+    public string Tag { get; set; }
 }

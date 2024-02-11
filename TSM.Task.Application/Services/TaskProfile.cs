@@ -8,10 +8,20 @@ public class TaskProfile : Profile
 {
     public TaskProfile()
     {
+        MapTask();
+        MapById();
         MapCreate();
         MapUpdate();
-        MapById();
-        MapTask();
+    }
+
+    private void MapTask()
+    {
+        CreateMap<Domain.Entities.Task, TaskResponse>();
+    }
+
+    private void MapById()
+    {
+        CreateMap<Domain.Entities.Task, TaskByIdResponse>();
     }
 
     private void MapCreate()
@@ -24,15 +34,5 @@ public class TaskProfile : Profile
     {
         CreateMap<UpdateTaskRequest, Domain.Entities.Task>();
         CreateMap<Domain.Entities.Task, UpdateTaskResponse>();
-    }
-
-    private void MapById()
-    {
-        CreateMap<Domain.Entities.Task, TaskByIdResponse>();
-    }
-
-    private void MapTask()
-    {
-        CreateMap<Domain.Entities.Task, TaskResponse>();
     }
 }

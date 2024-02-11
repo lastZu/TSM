@@ -1,4 +1,4 @@
-namespace TSM.Task.Application.Services.Priorities.Models;
+namespace TSM.Task.Application.Services.Priorities;
 
 public class PriorityDto
 {

@@ -1,6 +1,7 @@
 using System;
-using TSM.Task.Application.Services.Categories.Models;
-using TSM.Task.Application.Services.Priorities.Models;
+using TSM.Task.Application.Services.Categories;
+using TSM.Task.Application.Services.Priorities;
+using TSM.Task.Application.Services.Tags.Models.Responses;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Responses;
 
@@ -17,4 +18,6 @@ public class TaskResponse
     public CategoryDto CategoryResponse { get; set; }
 
     public PriorityDto PriorityResponse { get; set; }
+
+    public TagDto TagResponse { get; set; }
 }

@@ -9,32 +9,22 @@ using TSM.Task.Application.Services.Tasks.Models.Requests;
 using TSM.Task.Application.Services.Tasks.Models.Responses;
 using TSM.Task.Infrastructure;
 using TaskEntity = TSM.Task.Domain.Entities.Task;
+using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Application.Services.Tasks;
 
-public class TasksService : ITaskService
+public class TaskService : ITaskService
 {
     private readonly TaskContext _taskContext;
     private readonly DbSet<TaskEntity> _tasksSet;
     private readonly IMapper _mapper;
 
-    public TasksService(TaskContext taskContext, IMapper mapper)
+    public TaskService(TaskContext taskContext, IMapper mapper)
     {
         _taskContext = taskContext;
         _mapper = mapper;
 
         _tasksSet = _taskContext.Set<TaskEntity>();
-    }
-
-    public async Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken = default)
-    {
-        var task = _mapper.Map<TaskEntity>(request);
-
-        await _tasksSet.AddAsync(task, cancellationToken);
-
-        await _taskContext.SaveChangesAsync(cancellationToken);
-
-        return _mapper.Map<CreateTaskResponse>(task);
     }
 
     public async Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken = default)
@@ -43,7 +33,15 @@ public class TasksService : ITaskService
             .AsNoTracking()
             .Include(task => task.Category)
             .Include(task => task.Priority)
+            .Include(task => task.Tag)
             .ToListAsync(cancellationToken);
+
+        foreach (var task in tasks)
+        {
+            task.Tag = _taskContext.Set<Tag>()
+                .Where(tag => tag.Id == task.TagId)
+                .FirstOrDefault();
+        }
 
         return _mapper.Map<List<TaskResponse>>(tasks);
     }
@@ -58,6 +56,17 @@ public class TasksService : ITaskService
             .FirstOrDefaultAsync(cancellationToken);
 
         return _mapper.Map<TaskByIdResponse>(task);
+    }
+
+    public async Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken = default)
+    {
+        var task = _mapper.Map<TaskEntity>(request);
+
+        await _tasksSet.AddAsync(task, cancellationToken);
+
+        await _taskContext.SaveChangesAsync(cancellationToken);
+
+        return _mapper.Map<CreateTaskResponse>(task);
     }
 
     public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken = default)
