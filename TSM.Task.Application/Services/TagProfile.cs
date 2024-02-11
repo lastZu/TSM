@@ -10,12 +10,13 @@ public class TagProfile : Profile
 {
     public TagProfile()
     {
-        MapTask();
+        MapTag();
         MapCreate();
         MapUpdate();
+        MapTagDto();
     }
 
-    private void MapTask()
+    private void MapTag()
     {
         CreateMap<Tag, TagResponse>();
     }
@@ -30,5 +31,10 @@ public class TagProfile : Profile
     {
         CreateMap<UpdateTagRequest, Tag>();
         CreateMap<Tag, UpdateTagResponse>();
+    }
+
+    private void MapTagDto()
+    {
+        CreateMap<Tag, TagDto>();
     }
 }

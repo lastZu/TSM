@@ -15,9 +15,9 @@ public class TaskResponse
 
     public string Comment { get; set; }
 
-    public CategoryDto CategoryResponse { get; set; }
+    public CategoryDto Category { get; set; }
 
-    public PriorityDto PriorityResponse { get; set; }
+    public PriorityDto Priority { get; set; }
 
-    public TagDto TagResponse { get; set; }
+    public TagDto Tag { get; set; }
 }

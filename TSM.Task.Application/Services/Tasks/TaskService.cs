@@ -36,12 +36,12 @@ public class TaskService : ITaskService
             .Include(task => task.Tag)
             .ToListAsync(cancellationToken);
 
-        foreach (var task in tasks)
-        {
-            task.Tag = _taskContext.Set<Tag>()
-                .Where(tag => tag.Id == task.TagId)
-                .FirstOrDefault();
-        }
+        // foreach (var task in tasks)
+        // {
+        //     task.Tag = _taskContext.Set<Tag>()
+        //         .Where(tag => tag.Id == task.TagId)
+        //         .FirstOrDefault();
+        // }
 
         return _mapper.Map<List<TaskResponse>>(tasks);
     }
@@ -52,6 +52,7 @@ public class TaskService : ITaskService
             .AsNoTracking()
             .Include(task => task.Category)
             .Include(task => task.Priority)
+            .Include(task => task.Tag)
             .Where(task => task.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
 
