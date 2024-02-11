@@ -37,7 +37,9 @@ class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder
-            .HasMany(task => task.Tags)
-            .WithMany(tag => tag.Tasks);
+            .HasOne(t => t.Tag)
+            .WithMany()
+            .HasForeignKey(t => t.TagId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

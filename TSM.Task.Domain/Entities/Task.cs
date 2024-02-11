@@ -16,5 +16,6 @@ public class Task
     public byte? PriorityId { get; set; }
     public Priority Priority { get; set; }
 
-    public List<Tag> Tags { get; set; }
+    public Guid? TagId { get; set; }
+    public Tag Tag { get; set; }
 }
