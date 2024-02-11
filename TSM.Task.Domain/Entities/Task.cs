@@ -1,17 +1,20 @@
 using System;
+using System.Collections.Generic;
 
 namespace TSM.Task.Domain.Entities;
 
 public class Task
 {
-	public Guid Id { get; set; }
-	public string Title { get; set; }
-	public DateTime? Deadline { get; set; }
-	public string Comment { get; set; }
+    public Guid Id { get; set; }
+    public string Title { get; set; }
+    public DateTime? Deadline { get; set; }
+    public string Comment { get; set; }
 
-	public byte? CategoryId { get; set; }
-	public Category Category { get; set; }
+    public byte? CategoryId { get; set; }
+    public Category Category { get; set; }
 
-	public byte? PriorityId { get; set; }
-	public Priority Priority { get; set; }
+    public byte? PriorityId { get; set; }
+    public Priority Priority { get; set; }
+
+    public List<Tag> Tags { get; set; }
 }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Infrastructure.Configuration;
 class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
@@ -34,5 +35,9 @@ class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
             .WithMany()
             .HasForeignKey(t => t.PriorityId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasMany(task => task.Tags)
+            .WithMany(tag => tag.Tasks);
     }
 }
