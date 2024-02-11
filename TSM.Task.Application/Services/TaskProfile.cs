@@ -27,12 +27,20 @@ public class TaskProfile : Profile
     private void MapCreate()
     {
         CreateMap<CreateTaskRequest, Domain.Entities.Task>();
-        CreateMap<Domain.Entities.Task, CreateTaskResponse>();
+
+        CreateMap<Domain.Entities.Task, CreateTaskResponse>()
+            .ForMember(dest => dest.Category, option => option.MapFrom(src => src.Category.Name))
+            .ForMember(dest => dest.Priority, option => option.MapFrom(src => src.Priority.Name))
+            .ForMember(dest => dest.Tag, option => option.MapFrom(src => src.Tag.Name));
     }
 
     private void MapUpdate()
     {
         CreateMap<UpdateTaskRequest, Domain.Entities.Task>();
-        CreateMap<Domain.Entities.Task, UpdateTaskResponse>();
+
+        CreateMap<Domain.Entities.Task, UpdateTaskResponse>()
+            .ForMember(dest => dest.Category, option => option.MapFrom(src => src.Category.Name))
+            .ForMember(dest => dest.Priority, option => option.MapFrom(src => src.Priority.Name))
+            .ForMember(dest => dest.Tag, option => option.MapFrom(src => src.Tag.Name));
     }
 }

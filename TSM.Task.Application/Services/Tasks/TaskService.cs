@@ -36,13 +36,6 @@ public class TaskService : ITaskService
             .Include(task => task.Tag)
             .ToListAsync(cancellationToken);
 
-        // foreach (var task in tasks)
-        // {
-        //     task.Tag = _taskContext.Set<Tag>()
-        //         .Where(tag => tag.Id == task.TagId)
-        //         .FirstOrDefault();
-        // }
-
         return _mapper.Map<List<TaskResponse>>(tasks);
     }
 
@@ -73,6 +66,9 @@ public class TaskService : ITaskService
     public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken = default)
     {
         var task = await _tasksSet
+            .Include(t => t.Category)
+            .Include(t => t.Priority)
+            .Include(t => t.Tag)
             .Where(t => t.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
 
