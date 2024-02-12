@@ -12,6 +12,8 @@ class TagConfiguration : IEntityTypeConfiguration<Tag>
 
         builder.HasKey(t => t.Id);
 
+        builder.HasAlternateKey(t => t.Name);
+
         builder
             .Property(t => t.Name)
             .IsRequired();

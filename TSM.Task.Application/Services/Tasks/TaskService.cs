@@ -9,7 +9,6 @@ using TSM.Task.Application.Services.Tasks.Models.Requests;
 using TSM.Task.Application.Services.Tasks.Models.Responses;
 using TSM.Task.Infrastructure;
 using TaskEntity = TSM.Task.Domain.Entities.Task;
-using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Application.Services.Tasks;
 
@@ -52,6 +51,26 @@ public class TaskService : ITaskService
         return _mapper.Map<TaskByIdResponse>(task);
     }
 
+    public async Task<List<SearchTaskResponse>> Search(SearchTaskRequest request, CancellationToken cancellationToken = default)
+    {
+        bool categoriesIsEmpty = request.Categories is null;
+        bool prioritiesIsEmpty = request.Priorities is null;
+        bool tagsIsEmpty = request.Tags is null;
+        bool deadlineByIsEmpty = request.DeadlineBy is null;
+
+        var tasks = await _tasksSet
+            .AsNoTracking()
+            .Include(task => task.Category)
+            .Include(task => task.Priority)
+            .Include(task => task.Tag)
+            .Where(task => categoriesIsEmpty || request.Categories.Contains(task.Category.Name))
+            .Where(task => prioritiesIsEmpty || request.Priorities.Contains(task.Priority.Name))
+            .Where(task => tagsIsEmpty || request.Tags.Contains(task.Tag.Name))
+            .Where(task => deadlineByIsEmpty || task.Deadline <= request.DeadlineBy)
+            .ToListAsync(cancellationToken);
+
+        return _mapper.Map<List<SearchTaskResponse>>(tasks);
+    }
     public async Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken = default)
     {
         var task = _mapper.Map<TaskEntity>(request);

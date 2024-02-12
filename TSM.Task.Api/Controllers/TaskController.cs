@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using TSM.Task.Application.Services.Tasks;
 using TSM.Task.Application.Services.Tasks.Models.Requests;
 using TSM.Task.Application.Services.Tasks.Models.Responses;
@@ -36,6 +35,12 @@ public class TaskController : ControllerBase
         };
 
         return await _taskService.GetById(request, cancellationToken);
+    }
+
+    [HttpPost("search")]
+    public async Task<List<SearchTaskResponse>> Search([FromBody] SearchTaskRequest request, CancellationToken cancellationToken)
+    {
+        return await _taskService.Search(request, cancellationToken);
     }
 
     [HttpPost]
