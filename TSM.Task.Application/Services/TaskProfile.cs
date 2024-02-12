@@ -12,6 +12,7 @@ public class TaskProfile : Profile
         MapById();
         MapCreate();
         MapUpdate();
+        MapSearch();
     }
 
     private void MapTask()
@@ -39,6 +40,14 @@ public class TaskProfile : Profile
         CreateMap<UpdateTaskRequest, Domain.Entities.Task>();
 
         CreateMap<Domain.Entities.Task, UpdateTaskResponse>()
+            .ForMember(dest => dest.Category, option => option.MapFrom(src => src.Category.Name))
+            .ForMember(dest => dest.Priority, option => option.MapFrom(src => src.Priority.Name))
+            .ForMember(dest => dest.Tag, option => option.MapFrom(src => src.Tag.Name));
+    }
+
+    private void MapSearch()
+    {
+        CreateMap<Domain.Entities.Task, SearchTaskResponse>()
             .ForMember(dest => dest.Category, option => option.MapFrom(src => src.Category.Name))
             .ForMember(dest => dest.Priority, option => option.MapFrom(src => src.Priority.Name))
             .ForMember(dest => dest.Tag, option => option.MapFrom(src => src.Tag.Name));

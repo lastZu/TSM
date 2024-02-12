@@ -37,6 +37,12 @@ public class TaskController : ControllerBase
         return await _taskService.GetById(request, cancellationToken);
     }
 
+    [HttpPost("search")]
+    public async Task<List<SearchTaskResponse>> Search([FromBody] SearchTaskRequest request, CancellationToken cancellationToken)
+    {
+        return await _taskService.Search(request, cancellationToken);
+    }
+
     [HttpPost]
     public async Task<CreateTaskResponse> Create([FromBody] CreateTaskRequest request, CancellationToken cancellationToken)
     {
