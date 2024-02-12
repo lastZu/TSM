@@ -9,7 +9,6 @@ using TSM.Task.Application.Services.Tasks.Models.Requests;
 using TSM.Task.Application.Services.Tasks.Models.Responses;
 using TSM.Task.Infrastructure;
 using TaskEntity = TSM.Task.Domain.Entities.Task;
-using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Application.Services.Tasks;
 
