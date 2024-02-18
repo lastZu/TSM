@@ -18,7 +18,7 @@ class CategoryConfiguration : IEntityTypeConfiguration<Category>
         );
     }
 
-    private IEnumerable<Category> GetDefaultCategories()
+    private static IEnumerable<Category> GetDefaultCategories()
     {
         return new List<Category>
         {

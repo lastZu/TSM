@@ -9,7 +9,6 @@ using TSM.Task.Application.Services.Tasks.Models.Requests;
 using TSM.Task.Application.Services.Tasks.Models.Responses;
 using TSM.Task.Infrastructure;
 using TaskEntity = TSM.Task.Domain.Entities.Task;
-using System.Drawing;
 
 namespace TSM.Task.Application.Services.Tasks;
 
@@ -69,7 +68,7 @@ public class TaskService : ITaskService
             .Where(task => tagsIsEmpty || request.Tags.Contains(task.Tag.Name))
             .Where(task => deadlineByIsEmpty || task.Deadline <= request.DeadlineBy);
 
-        int totalCount = await tasks.CountAsync();
+        int totalCount = await tasks.CountAsync(cancellationToken);
 
         int size = request.Size;
         int page = request.Page;

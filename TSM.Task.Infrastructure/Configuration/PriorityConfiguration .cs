@@ -19,7 +19,7 @@ class PriorityConfiguration : IEntityTypeConfiguration<Priority>
         );
     }
 
-    private IEnumerable<Priority> GetDefaultPriorities()
+    private static IEnumerable<Priority> GetDefaultPriorities()
     {
         return new List<Priority>
         {
