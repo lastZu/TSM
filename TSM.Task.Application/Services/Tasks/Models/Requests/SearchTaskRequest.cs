@@ -12,4 +12,8 @@ public class SearchTaskRequest
     public List<string> Tags { get; set; }
 
     public DateTime? DeadlineBy { get; set; }
+
+    public int Page { get; set; }
+
+    public int Size { get; set; }
 }
