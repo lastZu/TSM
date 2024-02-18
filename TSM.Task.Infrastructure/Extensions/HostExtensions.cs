@@ -7,16 +7,16 @@ namespace TSM.Task.Infrastructure.Extensions;
 
 public static class HostExtensions
 {
-	public static async void MigrateDatabase(
-		this IHost host,
-		CancellationToken cancellationToken)
-	{
-		using (IServiceScope serviceScope = host.Services.CreateScope())
-  		{
-			await serviceScope
-				.ServiceProvider
-				.GetService<TaskContext>()
-				.Database.MigrateAsync(cancellationToken);
-		}
-	}
+    public static async System.Threading.Tasks.Task MigrateDatabase(
+        this IHost host,
+        CancellationToken cancellationToken)
+    {
+        using (IServiceScope serviceScope = host.Services.CreateScope())
+          {
+            await serviceScope
+                .ServiceProvider
+                .GetService<TaskContext>()
+                .Database.MigrateAsync(cancellationToken);
+        }
+    }
 }

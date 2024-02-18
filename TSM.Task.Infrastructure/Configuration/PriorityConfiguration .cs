@@ -1,13 +1,33 @@
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using TSM.Task.Domain.Entities;
+using TSM.Task.Domain.Enums;
 
 namespace TSM.Task.Infrastructure.Configuration;
-class PriorityConfiguration : IEntityTypeConfiguration<Domain.Entities.Priority>
+
+class PriorityConfiguration : IEntityTypeConfiguration<Priority>
 {
-    public void Configure(EntityTypeBuilder<Domain.Entities.Priority> builder)
+    public void Configure(EntityTypeBuilder<Priority> builder)
     {
         builder.ToTable("priority");
 
         builder.HasKey(p => p.Id);
+
+        builder.HasData(
+            GetDefaultPriorities()
+        );
+    }
+
+    private static IEnumerable<Priority> GetDefaultPriorities()
+    {
+        return new List<Priority>
+        {
+            new Priority { Id = (int) Priorities.High, Name = "Highest Priority" },
+
+            new Priority { Id = (int) Priorities.Usual, Name = "Medium Priority" },
+
+            new Priority { Id = (int) Priorities.Low, Name = "Low Priority" },
+        };
     }
 }
