@@ -11,5 +11,7 @@ var builder = Host
     );
 
 var host = builder.Build();
-host.MigrateDatabase(CancellationToken.None);
+
+await host.MigrateDatabase(CancellationToken.None);
+
 host.Run();
