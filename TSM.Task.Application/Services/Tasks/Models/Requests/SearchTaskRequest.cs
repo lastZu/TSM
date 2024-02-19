@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Requests;
 
 public class SearchTaskRequest
 {
-    public List<string> Categories { get; set; }
+    public ICollection<string> Categories { get; set; }
 
-    public List<string> Priorities { get; set; }
+    public ICollection<string> Priorities { get; set; }
 
-    public List<string> Tags { get; set; }
+    public ICollection<string> Tags { get; set; }
 
     public DateTime? DeadlineBy { get; set; }
 
