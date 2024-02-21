@@ -22,7 +22,7 @@ class CategoryConfiguration : IEntityTypeConfiguration<Category>
     {
         return new List<Category>
         {
-            new Category { Id = (int) Categories.Bag, Name = "Something isn't working" },
+            new Category { Id = (int) Categories.Bug, Name = "Something isn't working" },
 
             new Category { Id = (int) Categories.Issue, Name = "New feature" },
 

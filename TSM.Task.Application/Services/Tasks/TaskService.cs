@@ -9,13 +9,20 @@ using TSM.Task.Application.Services.Tasks.Models.Requests;
 using TSM.Task.Application.Services.Tasks.Models.Responses;
 using TSM.Task.Infrastructure;
 using TaskEntity = TSM.Task.Domain.Entities.Task;
+using TSM.Task.Application.Models;
 
 namespace TSM.Task.Application.Services.Tasks;
 
 public class TaskService : ITaskService
 {
+    private const int DefaultPage = 1;
+
+    private const int DefaultSize = 20;
+
     private readonly TaskContext _taskContext;
+
     private readonly DbSet<TaskEntity> _tasksSet;
+
     private readonly IMapper _mapper;
 
     public TaskService(TaskContext taskContext, IMapper mapper)
@@ -50,8 +57,18 @@ public class TaskService : ITaskService
 
         return _mapper.Map<TaskByIdResponse>(task);
     }
+    public async Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken = default)
+    {
+        var task = _mapper.Map<TaskEntity>(request);
 
-    public async Task<PagedList<SearchTaskResponse>> Search(SearchTaskRequest request, CancellationToken cancellationToken = default)
+        await _tasksSet.AddAsync(task, cancellationToken);
+
+        await _taskContext.SaveChangesAsync(cancellationToken);
+
+        return _mapper.Map<CreateTaskResponse>(task);
+    }
+
+    public async Task<PagedList<SearchTaskResponse>> Search(SearchTasksRequest request, CancellationToken cancellationToken = default)
     {
         bool categoriesIsEmpty = request.Categories is null;
         bool prioritiesIsEmpty = request.Priorities is null;
@@ -63,40 +80,37 @@ public class TaskService : ITaskService
             .Include(task => task.Category)
             .Include(task => task.Priority)
             .Include(task => task.Tag)
-            .Where(task => categoriesIsEmpty || request.Categories.Contains(task.Category.Name))
-            .Where(task => prioritiesIsEmpty || request.Priorities.Contains(task.Priority.Name))
-            .Where(task => tagsIsEmpty || request.Tags.Contains(task.Tag.Name))
+            .Where(task => categoriesIsEmpty || request.Categories.Contains(task.CategoryId))
+            .Where(task => prioritiesIsEmpty || request.Priorities.Contains(task.PriorityId))
+            .Where(task => tagsIsEmpty || request.Tags.Contains(task.TagId))
             .Where(task => deadlineByIsEmpty || task.Deadline <= request.DeadlineBy);
 
-        int totalCount = await tasks.CountAsync(cancellationToken);
+        var countTask = tasks.CountAsync(cancellationToken);
 
-        int size = request.Size;
-        int page = request.Page;
+        int size = request.Size ?? DefaultSize;
+        int page = request.Page ?? DefaultPage;
 
-        int skippableLines = (page - 1) * size;
-        var chank = await tasks
-            .Skip(skippableLines)
+        int linesToSkip = (page - 1) * size;
+
+        var chankTask = tasks
+            .Skip(linesToSkip)
             .Take(size)
             .ToArrayAsync(cancellationToken);
 
+        await System.Threading.Tasks.Task.WhenAll(countTask, chankTask);
+
+        int totalCount = countTask.Result;
+        var chank = chankTask.Result;
+
         var items = _mapper.Map<SearchTaskResponse[]>(chank);
 
-        return new PagedList<SearchTaskResponse> {
+        return new PagedList<SearchTaskResponse>
+        {
             Items = items,
             Page = page,
             Size = size,
             TotalCount = totalCount,
         };
-    }
-    public async Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken = default)
-    {
-        var task = _mapper.Map<TaskEntity>(request);
-
-        await _tasksSet.AddAsync(task, cancellationToken);
-
-        await _taskContext.SaveChangesAsync(cancellationToken);
-
-        return _mapper.Map<CreateTaskResponse>(task);
     }
 
     public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken = default)

@@ -1,4 +1,4 @@
-namespace TSM.Task.Application.Services.Tasks.Models.Responses;
+namespace TSM.Task.Application.Models;
 
 public class PagedList<T>
 {

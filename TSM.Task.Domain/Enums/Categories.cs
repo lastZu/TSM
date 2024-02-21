@@ -2,7 +2,7 @@
 
 public enum Categories
 {
-    Bag,
+    Bug = 1,
     Issue,
     Question,
 }
