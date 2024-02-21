@@ -51,9 +51,6 @@ public class TagController : ControllerBase
             Id = id
         };
 
-        await System.Threading.Tasks.Task.Run(
-            () => _tagService.Delete(request, cancellationToken),
-            cancellationToken
-        );
+        await _tagService.Delete(request, cancellationToken);
     }
 }
