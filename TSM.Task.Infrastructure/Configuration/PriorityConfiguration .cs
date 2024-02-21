@@ -23,11 +23,11 @@ class PriorityConfiguration : IEntityTypeConfiguration<Priority>
     {
         return new List<Priority>
         {
-            new Priority { Id = (int) Priorities.High, Name = "Highest Priority" },
+            new Priority { Id = (int) Priorities.High, Name = "Highest" },
 
-            new Priority { Id = (int) Priorities.Medium, Name = "Medium Priority" },
+            new Priority { Id = (int) Priorities.Medium, Name = "Medium" },
 
-            new Priority { Id = (int) Priorities.Low, Name = "Low Priority" },
+            new Priority { Id = (int) Priorities.Low, Name = "Low" },
         };
     }
 }
