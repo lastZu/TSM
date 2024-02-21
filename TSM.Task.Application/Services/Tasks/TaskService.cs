@@ -9,6 +9,7 @@ using TSM.Task.Application.Services.Tasks.Models.Requests;
 using TSM.Task.Application.Services.Tasks.Models.Responses;
 using TSM.Task.Infrastructure;
 using TaskEntity = TSM.Task.Domain.Entities.Task;
+using TSM.Task.Application.Models;
 
 namespace TSM.Task.Application.Services.Tasks;
 
@@ -51,7 +52,7 @@ public class TaskService : ITaskService
         return _mapper.Map<TaskByIdResponse>(task);
     }
 
-    public async Task<PagedList<SearchTaskResponse>> Search(SearchTaskRequest request, CancellationToken cancellationToken = default)
+    public async Task<PagedList<SearchTaskResponse>> Search(SearchTasksRequest request, CancellationToken cancellationToken = default)
     {
         bool categoriesIsEmpty = request.Categories is null;
         bool prioritiesIsEmpty = request.Priorities is null;
@@ -63,25 +64,26 @@ public class TaskService : ITaskService
             .Include(task => task.Category)
             .Include(task => task.Priority)
             .Include(task => task.Tag)
-            .Where(task => categoriesIsEmpty || request.Categories.Contains(task.Category.Name))
-            .Where(task => prioritiesIsEmpty || request.Priorities.Contains(task.Priority.Name))
-            .Where(task => tagsIsEmpty || request.Tags.Contains(task.Tag.Name))
+            .Where(task => categoriesIsEmpty || request.Categories.Contains(task.CategoryId))
+            .Where(task => prioritiesIsEmpty || request.Priorities.Contains(task.PriorityId))
+            .Where(task => tagsIsEmpty || request.Tags.Contains(task.TagId))
             .Where(task => deadlineByIsEmpty || task.Deadline <= request.DeadlineBy);
 
         int totalCount = await tasks.CountAsync(cancellationToken);
 
-        int size = request.Size;
-        int page = request.Page;
+        int size = request.Size ?? 20;
+        int page = request.Page ?? 1;
 
-        int skippableLines = (page - 1) * size;
+        int linesToSkip = (page - 1) * size;
         var chank = await tasks
-            .Skip(skippableLines)
+            .Skip(linesToSkip)
             .Take(size)
             .ToArrayAsync(cancellationToken);
 
         var items = _mapper.Map<SearchTaskResponse[]>(chank);
 
-        return new PagedList<SearchTaskResponse> {
+        return new PagedList<SearchTaskResponse>
+        {
             Items = items,
             Page = page,
             Size = size,

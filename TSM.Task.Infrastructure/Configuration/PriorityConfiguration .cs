@@ -25,7 +25,7 @@ class PriorityConfiguration : IEntityTypeConfiguration<Priority>
         {
             new Priority { Id = (int) Priorities.High, Name = "Highest Priority" },
 
-            new Priority { Id = (int) Priorities.Usual, Name = "Medium Priority" },
+            new Priority { Id = (int) Priorities.Medium, Name = "Medium Priority" },
 
             new Priority { Id = (int) Priorities.Low, Name = "Low Priority" },
         };
