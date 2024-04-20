@@ -3,13 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src/TSM.Task.Api", "src/TSM.Task.Api\TSM.Task.Api.csproj", "{4E66D77D-B527-4E70-B925-872E5C88354F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSM.Task.Api", "src\TSM.Task.Api\TSM.Task.Api.csproj", "{4E66D77D-B527-4E70-B925-872E5C88354F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src/TSM.Task.Application", "src/TSM.Task.Application\TSM.Task.Application.csproj", "{4A0F7FA9-56EE-4F5D-B0A0-A1A694272DEC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSM.Task.Application", "src\TSM.Task.Application\TSM.Task.Application.csproj", "{4A0F7FA9-56EE-4F5D-B0A0-A1A694272DEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src/TSM.Task.Domain", "src/TSM.Task.Domain\TSM.Task.Domain.csproj", "{279555D7-FE3F-4A0D-9F52-E1A9816611B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSM.Task.Domain", "src\TSM.Task.Domain\TSM.Task.Domain.csproj", "{279555D7-FE3F-4A0D-9F52-E1A9816611B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "src/TSM.Task.Infrastructure", "src/TSM.Task.Infrastructure\TSM.Task.Infrastructure.csproj", "{6573FEAA-86E8-472F-B3B9-ED3DCD829A81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSM.Task.Infrastructure", "src\TSM.Task.Infrastructure\TSM.Task.Infrastructure.csproj", "{6573FEAA-86E8-472F-B3B9-ED3DCD829A81}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{75A8264E-5831-4801-B930-7C63F6EBF925}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSM.WorkLogs.Application", "src\TSM.WorkLogs.Application\TSM.WorkLogs.Application.csproj", "{0534C26E-E4D3-4AAA-BC02-A3FAF83707E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSM.WorkLogs.Domain", "src\TSM.WorkLogs.Domain\TSM.WorkLogs.Domain.csproj", "{FABA8F98-5E63-4565-91EA-7AB37507A846}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSM.WorkLogs.Infrastructure", "src\TSM.WorkLogs.Infrastructure\TSM.WorkLogs.Infrastructure.csproj", "{22D7EC6C-A12E-4B0D-A531-30641CE018FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TSM.WorkLogs.Api", "src\TSM.WorkLogs.Api\TSM.WorkLogs.Api.csproj", "{6EA88571-58B3-4371-B7C5-0C9376913FC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +43,34 @@ Global
 		{6573FEAA-86E8-472F-B3B9-ED3DCD829A81}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6573FEAA-86E8-472F-B3B9-ED3DCD829A81}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6573FEAA-86E8-472F-B3B9-ED3DCD829A81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0534C26E-E4D3-4AAA-BC02-A3FAF83707E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0534C26E-E4D3-4AAA-BC02-A3FAF83707E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0534C26E-E4D3-4AAA-BC02-A3FAF83707E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0534C26E-E4D3-4AAA-BC02-A3FAF83707E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FABA8F98-5E63-4565-91EA-7AB37507A846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FABA8F98-5E63-4565-91EA-7AB37507A846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FABA8F98-5E63-4565-91EA-7AB37507A846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FABA8F98-5E63-4565-91EA-7AB37507A846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22D7EC6C-A12E-4B0D-A531-30641CE018FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22D7EC6C-A12E-4B0D-A531-30641CE018FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22D7EC6C-A12E-4B0D-A531-30641CE018FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22D7EC6C-A12E-4B0D-A531-30641CE018FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EA88571-58B3-4371-B7C5-0C9376913FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EA88571-58B3-4371-B7C5-0C9376913FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EA88571-58B3-4371-B7C5-0C9376913FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EA88571-58B3-4371-B7C5-0C9376913FC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E66D77D-B527-4E70-B925-872E5C88354F} = {75A8264E-5831-4801-B930-7C63F6EBF925}
+		{4A0F7FA9-56EE-4F5D-B0A0-A1A694272DEC} = {75A8264E-5831-4801-B930-7C63F6EBF925}
+		{279555D7-FE3F-4A0D-9F52-E1A9816611B2} = {75A8264E-5831-4801-B930-7C63F6EBF925}
+		{6573FEAA-86E8-472F-B3B9-ED3DCD829A81} = {75A8264E-5831-4801-B930-7C63F6EBF925}
+		{0534C26E-E4D3-4AAA-BC02-A3FAF83707E0} = {75A8264E-5831-4801-B930-7C63F6EBF925}
+		{FABA8F98-5E63-4565-91EA-7AB37507A846} = {75A8264E-5831-4801-B930-7C63F6EBF925}
+		{22D7EC6C-A12E-4B0D-A531-30641CE018FC} = {75A8264E-5831-4801-B930-7C63F6EBF925}
+		{6EA88571-58B3-4371-B7C5-0C9376913FC8} = {75A8264E-5831-4801-B930-7C63F6EBF925}
 	EndGlobalSection
 EndGlobal
