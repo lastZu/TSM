@@ -10,6 +10,6 @@ public static class ServiceCollectionExtensions
         string connectionString)
     {
         serviceCollection
-            .AddDbContext<TempContext>(option => option.UseNpgsql(connectionString));
+            .AddDbContext<WorkLogContext>(option => option.UseNpgsql(connectionString));
     }
 }

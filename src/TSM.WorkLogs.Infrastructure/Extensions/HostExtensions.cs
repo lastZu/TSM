@@ -15,7 +15,7 @@ public static class HostExtensions
           {
             await serviceScope
                 .ServiceProvider
-                .GetService<TempContext>()
+                .GetService<WorkLogContext>()
                 .Database.MigrateAsync(cancellationToken);
         }
     }

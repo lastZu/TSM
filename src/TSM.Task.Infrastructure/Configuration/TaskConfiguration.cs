@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Infrastructure.Configuration;
+
 class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
 {
     public void Configure(EntityTypeBuilder<Domain.Entities.Task> builder)

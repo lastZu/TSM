@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TSM.WorkLogs.Domain.Entities;
 
 namespace TSM.WorkLogs.Infrastructure;
 
-public class TempContext : DbContext
+public class WorkLogContext : DbContext
 {
-    public TempContext(DbContextOptions<TempContext> options)
-        : base(options)
+    public DbSet<WorkLog> WorkLogs { get; set; }
+
+    public WorkLogContext(DbContextOptions options) : base(options)
     {
     }
 
@@ -16,6 +18,6 @@ public class TempContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) =>
         modelBuilder.ApplyConfigurationsFromAssembly(
-            typeof(TempContext).Assembly
+            typeof(WorkLogContext).Assembly
         );
 }
