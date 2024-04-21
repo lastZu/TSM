@@ -48,8 +48,6 @@ public class WorkLogController : ControllerBase
         [FromBody] UpdateWorkLogRequest request,
         CancellationToken cancellationToken)
     {
-        request.Id = id;
-
-        return await _workLogService.Update(request, cancellationToken);
+        return await _workLogService.Update(id, request, cancellationToken);
     }
 }

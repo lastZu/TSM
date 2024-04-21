@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,10 +57,10 @@ public class WorkLogService : IWorkLogService
         return _mapper.Map<CreateWorkLogResponse>(workLog);
     }
 
-    public async Task<UpdateWorkLogResponse> Update(UpdateWorkLogRequest request, CancellationToken cancellationToken = default)
+    public async Task<UpdateWorkLogResponse> Update(Guid id, UpdateWorkLogRequest request, CancellationToken cancellationToken = default)
     {
         var workLog = await _workLogsSet
-            .Where(workLog => workLog.Id == request.Id)
+            .Where(workLog => workLog.Id == id)
             .FirstOrDefaultAsync(cancellationToken);
 
         _mapper.Map(request, workLog);

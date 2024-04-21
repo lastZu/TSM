@@ -4,8 +4,6 @@ namespace TSM.WorkLogs.Application.Services.WorkLogs;
 
 public class UpdateWorkLogRequest
 {
-    public Guid Id { get; set; }
-
     public Guid? TaskId { get; set; }
 
     public int? Time { get; set; }

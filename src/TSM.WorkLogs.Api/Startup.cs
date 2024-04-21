@@ -7,6 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using TSM.WorkLogs.Application;
+using TSM.WorkLogs.Application.Services;
 using TSM.WorkLogs.Infrastructure.Extensions;
 
 namespace TSM.WorkLogs.Api;
@@ -28,7 +31,20 @@ public class Startup
             "Host=127.0.0.1;Port=5432;Database=WorkLogDB;Username=tasker;Password=pass"
         );
 
-        services.AddSwaggerGen();
+        services.AddTransient<IWorkLogService, WorkLogService>();
+
+        services.AddSwaggerGen(option =>
+        {
+            const string version = "v1";
+
+            var openApiInfo = new OpenApiInfo
+            {
+                Title = "WorkLog API",
+                Description = "Time tracking by task",
+                Version = version,
+            };
+            option.SwaggerDoc(version, openApiInfo);
+        });
 
         services.AddMvcCore()
             .AddApiExplorer()
@@ -49,7 +65,9 @@ public class Startup
         }
 
         app.UseSwagger();
-        app.UseSwaggerUI();
+        app.UseSwaggerUI(options =>
+            options.SwaggerEndpoint("/swagger/v1/swagger.json", "WorkLog API V1")
+        );
 
         app.UseRouting();
 

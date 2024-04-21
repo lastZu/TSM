@@ -27,10 +27,12 @@ public class WorkLogProfile : Profile
     private void MapCreate()
     {
         CreateMap<CreateWorkLogRequest, WorkLog>();
+        CreateMap<WorkLog, CreateWorkLogResponse>();
     }
 
     private void MapUpdate()
     {
         CreateMap<UpdateWorkLogRequest, WorkLog>();
+        CreateMap<WorkLog, UpdateWorkLogResponse>();
     }
 }
