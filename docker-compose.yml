@@ -1,0 +1,39 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+
+  tsmworklogsapi:
+    image: tsmworklogsapi
+    build:
+      context: .
+      dockerfile: src/TSM.WorkLogs.Api/Dockerfile
+    ports:
+      - 5253:5253
+    networks:
+      - task_network
+
+  db:
+    container_name: postgres_my_app
+    image: postgres:15.4-alpine
+    environment:
+      POSTGRES_DB: TaskDB
+      POSTGRES_USER: ${POSTGRES_USER:-tasker}
+      POSTGRES_PASSWORD: ${POSTGRES_PASS:-pass}
+    volumes:
+       - postgres:/var/lib/postgresql
+       - postgresql_data:/var/lib/postgresql/data
+    ports:
+      - "${HOST_IP:-127.0.0.1}:${POSTGRES_PORT:-5432}:5432"
+    networks:
+      - task_network
+    restart: unless-stopped
+
+networks:
+  task_network:
+    driver: bridge
+
+volumes:
+  postgres:
+  postgresql_data:

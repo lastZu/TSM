@@ -28,7 +28,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddInfrastructureReferences(
-            "Host=127.0.0.1;Port=5432;Database=WorkLogDB;Username=tasker;Password=pass"
+            "Host=db;Port=5432;Database=WorkLogDB;Username=tasker;Password=pass"
         );
 
         services.AddTransient<IWorkLogService, WorkLogService>();
