@@ -13,20 +13,11 @@ public class WorkLogConfiguration : IEntityTypeConfiguration<WorkLog>
         builder.HasKey(w => w.Id);
 
         builder
-            .Property(w => w.Time)
-            .IsRequired();
-
-        builder
             .Property(w => w.Comment)
             .HasMaxLength(1024);
 
         builder
             .Property(w => w.Date)
-            .HasColumnType("timestamp without time zone")
-            .IsRequired();
-
-        builder
-            .Property(w => w.TaskId)
-            .IsRequired();
+            .HasColumnType("timestamp without time zone");
     }
 }
