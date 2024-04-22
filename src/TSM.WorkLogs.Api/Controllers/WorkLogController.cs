@@ -20,34 +20,34 @@ public sealed class WorkLogController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken)
+    public Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken)
     {
-        return await _workLogService.GetAll(cancellationToken);
+        return _workLogService.GetAll(cancellationToken);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<WorkLogByIdResponse> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
+    public Task<WorkLogByIdResponse> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
     {
         var request = new WorkLogByIdRequest
         {
             Id = id
         };
 
-        return await _workLogService.GetById(request, cancellationToken);
+        return _workLogService.GetById(request, cancellationToken);
     }
 
     [HttpPost]
-    public async Task<CreateWorkLogResponse> Create([FromBody] CreateWorkLogRequest request, CancellationToken cancellationToken)
+    public Task<CreateWorkLogResponse> Create([FromBody] CreateWorkLogRequest request, CancellationToken cancellationToken)
     {
-        return await _workLogService.Create(request, cancellationToken);
+        return _workLogService.Create(request, cancellationToken);
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<UpdateWorkLogResponse> Update(
+    public Task<UpdateWorkLogResponse> Update(
         [FromRoute] Guid id,
         [FromBody] UpdateWorkLogRequest request,
         CancellationToken cancellationToken)
     {
-        return await _workLogService.Update(id, request, cancellationToken);
+        return _workLogService.Update(id, request, cancellationToken);
     }
 }
