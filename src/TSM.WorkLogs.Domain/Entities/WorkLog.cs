@@ -2,7 +2,7 @@ using System;
 
 namespace TSM.WorkLogs.Domain.Entities;
 
-public class WorkLog
+public sealed class WorkLog
 {
     public Guid Id { get; set; }
 

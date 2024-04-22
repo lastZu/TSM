@@ -14,7 +14,7 @@ using TSM.WorkLogs.Infrastructure.Extensions;
 
 namespace TSM.WorkLogs.Api;
 
-public class Startup
+public sealed class Startup
 {
     private const string AssemblyPrefix = "TSM.WorkLogs";
 

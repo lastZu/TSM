@@ -2,7 +2,7 @@
 
 namespace TSM.WorkLogs.Application.Services.WorkLogs;
 
-public class UpdateWorkLogResponse
+public sealed class UpdateWorkLogResponse
 {
     public Guid Id { get; set; }
 }

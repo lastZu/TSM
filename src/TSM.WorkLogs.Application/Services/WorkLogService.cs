@@ -11,7 +11,7 @@ using TSM.WorkLogs.Infrastructure;
 
 namespace TSM.WorkLogs.Application.Services;
 
-public class WorkLogService : IWorkLogService
+public sealed class WorkLogService : IWorkLogService
 {
     private readonly WorkLogContext _workLogContext;
 

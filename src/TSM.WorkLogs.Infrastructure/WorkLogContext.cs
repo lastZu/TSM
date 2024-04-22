@@ -3,7 +3,7 @@ using TSM.WorkLogs.Domain.Entities;
 
 namespace TSM.WorkLogs.Infrastructure;
 
-public class WorkLogContext : DbContext
+public sealed class WorkLogContext : DbContext
 {
     public DbSet<WorkLog> WorkLogs { get; set; }
 
