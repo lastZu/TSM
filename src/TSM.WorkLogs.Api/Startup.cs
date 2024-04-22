@@ -27,9 +27,7 @@ public sealed class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddInfrastructureReferences(
-            "Host=db;Port=5432;Database=WorkLogDB;Username=tasker;Password=pass"
-        );
+        services.AddInfrastructureReferences(Configuration);
 
         services.AddTransient<IWorkLogService, WorkLogService>();
 
