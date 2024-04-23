@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
 using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Infrastructure;
+
 public class TaskContext : DbContext
 {
     public DbSet<Domain.Entities.Task> Tasks { get; set; }
