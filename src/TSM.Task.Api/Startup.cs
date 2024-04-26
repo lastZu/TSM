@@ -12,78 +12,73 @@ using TSM.Task.Application.Services.Tasks;
 using TSM.Task.Api.Extensions;
 using TSM.Task.Infrastructure.Extensions;
 using TSM.Task.Application.Services.Tags;
+using TSM.Task.Application.Extensions;
 
 namespace TSM.Task.Api;
 
 public class Startup
 {
-    private const string AssemblyPrefix = "TSM.Task";
+	private const string AssemblyPrefix = "TSM.Task";
 
-    public IConfiguration Configuration { get; }
+	public IConfiguration Configuration { get; }
 
-    public Startup(IConfiguration configuration)
-    {
-        Configuration = configuration;
-    }
+	public Startup(IConfiguration configuration)
+	{
+		Configuration = configuration;
+	}
 
-    public void ConfigureServices(IServiceCollection services)
-    {
-        services.AddInfrastructureReferences(
-            "Host=127.0.0.1;Port=5432;Database=TaskDB;Username=tasker;Password=pass"
-        );
+	public void ConfigureServices(IServiceCollection services)
+	{
+		services.AddMvcCore()
+			.AddApiExplorer()
+			.AddControllersAsServices();
 
-        services.AddTransient<ITaskService, TaskService>();
-        services.AddTransient<TaskController>();
-        services.AddTransient<ITagService, TagService>();
-        services.AddTransient<TagController>();
+		services.AddAutoMapper(AssemblyPrefix);
 
-        services.AddMvcCore()
-            .AddApiExplorer()
-            .AddControllersAsServices();
+		services.AddTaskApiDocumentation(
+			title: "Tasks API",
+			description: "Keep track of your tasks",
+			version: "v1"
+		);
 
-        services.AddAutoMapper(AssemblyPrefix);
+		services.AddInfrastructureReferences(Configuration.GetConnectionString("TaskContext"));
+		Application.Extensions.ServiceCollectionExtensions.AddApplicationServices();
+	}
 
-        services.AddTaskApiDocumentation(
-            title: "Tasks API",
-            description: "Keep track of your tasks",
-            version: "v1"
-        );
-    }
+	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+	{
+		if (env.IsDevelopment())
+		{
+			app.UseDeveloperExceptionPage();
+		}
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
+		app.UseRouting();
 
-        app.UseRouting();
+		app.UseSwaggerForTasks("Tasks API V1");
 
-        app.UseSwaggerForTasks("Tasks API V1");
-
-        app.UseEndpoints(endpoint => { endpoint.MapControllers(); });
-    }
+		app.UseEndpoints(endpoint => { endpoint.MapControllers(); });
+	}
 }
 
 public static class AutoMapperExtensions
 {
-    public static IServiceCollection AddAutoMapper(this IServiceCollection services, string prefixAssemblyName)
-    {
-        var assemblies = DependencyContext.Default.RuntimeLibraries
-            .SelectMany(lib => lib
-                .GetDefaultAssemblyNames(DependencyContext.Default)
-                .Where(assemblyName => assemblyName.FullName.StartsWith(prefixAssemblyName))
-                .Select(Assembly.Load))
-            .ToArray();
+	public static IServiceCollection AddAutoMapper(this IServiceCollection services, string prefixAssemblyName)
+	{
+		var assemblies = DependencyContext.Default.RuntimeLibraries
+			.SelectMany(lib => lib
+				.GetDefaultAssemblyNames(DependencyContext.Default)
+				.Where(assemblyName => assemblyName.FullName.StartsWith(prefixAssemblyName))
+				.Select(Assembly.Load))
+			.ToArray();
 
-        var mapper = new Mapper(new MapperConfiguration(ctx =>
-        {
-            ctx.AllowNullCollections = true;
-            ctx.AddMaps(assemblies);
-        }));
+		var mapper = new Mapper(new MapperConfiguration(ctx =>
+		{
+			ctx.AllowNullCollections = true;
+			ctx.AddMaps(assemblies);
+		}));
 
-        services.AddSingleton<IMapper>(mapper);
+		services.AddSingleton<IMapper>(mapper);
 
-        return services;
-    }
+		return services;
+	}
 }

@@ -8,8 +8,11 @@ namespace TSM.Task.Application.Services.Tags;
 
 public interface ITagService
 {
-    public Task<List<TagResponse>> GetAll(CancellationToken cancellationToken = default);
-    public Task<CreateTagResponse> Create(CreateTagRequest request, CancellationToken cancellationToken = default);
-    public Task<UpdateTagResponse> Update(UpdateTagRequest request, CancellationToken cancellationToken = default);
-    public System.Threading.Tasks.Task Delete(DeleteTagRequest request, CancellationToken cancellationToken = default);
+	Task<IReadOnlyList<TagResponse>> GetAll(CancellationToken cancellationToken = default);
+
+	Task<CreateTagResponse> Create(CreateTagRequest request, CancellationToken cancellationToken = default);
+
+	Task<UpdateTagResponse> Update(UpdateTagRequest request, CancellationToken cancellationToken = default);
+
+	System.Threading.Tasks.Task Delete(DeleteTagRequest request, CancellationToken cancellationToken = default);
 }
