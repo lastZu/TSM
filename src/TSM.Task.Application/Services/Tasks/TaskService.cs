@@ -70,10 +70,10 @@ internal sealed class TaskService : ITaskService
 
 	public async Task<PagedList<SearchTaskResponse>> Search(SearchTasksRequest request, CancellationToken cancellationToken = default)
 	{
-		bool categoriesIsEmpty = request.Categories is null;
-		bool prioritiesIsEmpty = request.Priorities is null;
-		bool tagsIsEmpty = request.Tags is null;
-		bool deadlineByIsEmpty = request.DeadlineBy is null;
+		var categoriesIsEmpty = request.Categories is null;
+		var prioritiesIsEmpty = request.Priorities is null;
+		var tagsIsEmpty = request.Tags is null;
+		var deadlineByIsEmpty = request.DeadlineBy is null;
 
 		var tasks = _tasksSet
 			.AsNoTracking()
@@ -87,10 +87,10 @@ internal sealed class TaskService : ITaskService
 
 		var countTask = tasks.CountAsync(cancellationToken);
 
-		int size = request.Size ?? DefaultSize;
-		int page = request.Page ?? DefaultPage;
+		var size = request.Size ?? DefaultSize;
+		var page = request.Page ?? DefaultPage;
 
-		int linesToSkip = (page - 1) * size;
+		var linesToSkip = (page - 1) * size;
 
 		var chankTask = tasks
 			.Skip(linesToSkip)
@@ -99,7 +99,7 @@ internal sealed class TaskService : ITaskService
 
 		await System.Threading.Tasks.Task.WhenAll(countTask, chankTask);
 
-		int totalCount = countTask.Result;
+		var totalCount = countTask.Result;
 		var chank = chankTask.Result;
 
 		var items = _mapper.Map<SearchTaskResponse[]>(chank);

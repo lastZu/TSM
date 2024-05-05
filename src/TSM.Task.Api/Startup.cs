@@ -7,11 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.Hosting;
-using TSM.Task.Api.Controllers;
-using TSM.Task.Application.Services.Tasks;
 using TSM.Task.Api.Extensions;
 using TSM.Task.Infrastructure.Extensions;
-using TSM.Task.Application.Services.Tags;
 using TSM.Task.Application.Extensions;
 
 namespace TSM.Task.Api;
@@ -42,7 +39,7 @@ public class Startup
 		);
 
 		services.AddInfrastructureReferences(Configuration.GetConnectionString("TaskContext"));
-		Application.Extensions.ServiceCollectionExtensions.AddApplicationServices();
+		services.AddApplicationServices();
 	}
 
 	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

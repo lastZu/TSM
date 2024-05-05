@@ -7,15 +7,15 @@ namespace TSM.WorkLogs.Infrastructure.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddInfrastructureReferences(
-        this IServiceCollection serviceCollection,
-        IConfiguration configuration)
-    {
-        var connectionString = configuration
-            .GetSection(PostgreOptions.SectionName)
-            .Get<PostgreOptions>().ConnectionString;
+	public static void AddInfrastructureReferences(
+		this IServiceCollection serviceCollection,
+		IConfiguration configuration)
+	{
+		var connectionString = configuration
+			.GetSection(PostgreOptions.SectionName)
+			.Get<PostgreOptions>().ConnectionString;
 
-        serviceCollection
-            .AddDbContext<WorkLogContext>(option => option.UseNpgsql(connectionString));
-    }
+		serviceCollection
+			.AddDbContext<WorkLogContext>(option => option.UseNpgsql(connectionString));
+	}
 }

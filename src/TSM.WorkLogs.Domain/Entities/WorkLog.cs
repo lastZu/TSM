@@ -4,13 +4,13 @@ namespace TSM.WorkLogs.Domain.Entities;
 
 public sealed class WorkLog
 {
-    public Guid Id { get; set; }
+	public Guid Id { get; set; }
 
-    public Guid TaskId { get; set; }
+	public Guid TaskId { get; set; }
 
-    public int Time { get; set; }
+	public int Time { get; set; }
 
-    public string Comment { get; set; }
+	public string Comment { get; set; }
 
-    public DateTime Date { get; set; }
+	public DateTime Date { get; set; }
 }

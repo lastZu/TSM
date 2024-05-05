@@ -12,42 +12,42 @@ namespace TSM.WorkLogs.Api.Controllers;
 [Route("work-logs")]
 public sealed class WorkLogController : ControllerBase
 {
-    private readonly IWorkLogService _workLogService;
+	private readonly IWorkLogService _workLogService;
 
-    public WorkLogController(IWorkLogService workLogService)
-    {
-        _workLogService = workLogService;
-    }
+	public WorkLogController(IWorkLogService workLogService)
+	{
+		_workLogService = workLogService;
+	}
 
-    [HttpGet]
-    public Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken)
-    {
-        return _workLogService.GetAll(cancellationToken);
-    }
+	[HttpGet]
+	public Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken)
+	{
+		return _workLogService.GetAll(cancellationToken);
+	}
 
-    [HttpGet("{id:guid}")]
-    public Task<WorkLogByIdResponse> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
-    {
-        var request = new WorkLogByIdRequest
-        {
-            Id = id
-        };
+	[HttpGet("{id:guid}")]
+	public Task<WorkLogByIdResponse> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
+	{
+		var request = new WorkLogByIdRequest
+		{
+			Id = id
+		};
 
-        return _workLogService.GetById(request, cancellationToken);
-    }
+		return _workLogService.GetById(request, cancellationToken);
+	}
 
-    [HttpPost]
-    public Task<CreateWorkLogResponse> Create([FromBody] CreateWorkLogRequest request, CancellationToken cancellationToken)
-    {
-        return _workLogService.Create(request, cancellationToken);
-    }
+	[HttpPost]
+	public Task<CreateWorkLogResponse> Create([FromBody] CreateWorkLogRequest request, CancellationToken cancellationToken)
+	{
+		return _workLogService.Create(request, cancellationToken);
+	}
 
-    [HttpPut("{id:guid}")]
-    public Task<UpdateWorkLogResponse> Update(
-        [FromRoute] Guid id,
-        [FromBody] UpdateWorkLogRequest request,
-        CancellationToken cancellationToken)
-    {
-        return _workLogService.Update(id, request, cancellationToken);
-    }
+	[HttpPut("{id:guid}")]
+	public Task<UpdateWorkLogResponse> Update(
+		[FromRoute] Guid id,
+		[FromBody] UpdateWorkLogRequest request,
+		CancellationToken cancellationToken)
+	{
+		return _workLogService.Update(id, request, cancellationToken);
+	}
 }

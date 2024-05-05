@@ -14,61 +14,61 @@ namespace TSM.Task.Api.Controllers;
 [Route("tasks")]
 public class TaskController : ControllerBase
 {
-    private readonly ITaskService _taskService;
+	private readonly ITaskService _taskService;
 
-    public TaskController(ITaskService taskService)
-    {
-        _taskService = taskService;
-    }
+	public TaskController(ITaskService taskService)
+	{
+		_taskService = taskService;
+	}
 
-    [HttpGet]
-    public async Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken)
-    {
-        return await _taskService.GetAll(cancellationToken);
-    }
+	[HttpGet]
+	public async Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken)
+	{
+		return await _taskService.GetAll(cancellationToken);
+	}
 
-    [HttpGet("{id:guid}")]
-    public async Task<TaskByIdResponse> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
-    {
-        var request = new GetTaskByIdRequest
-        {
-            Id =  id
-        };
+	[HttpGet("{id:guid}")]
+	public async Task<TaskByIdResponse> GetById([FromRoute] Guid id, CancellationToken cancellationToken)
+	{
+		var request = new GetTaskByIdRequest
+		{
+			Id = id
+		};
 
-        return await _taskService.GetById(request, cancellationToken);
-    }
+		return await _taskService.GetById(request, cancellationToken);
+	}
 
-    [HttpPost]
-    public async Task<CreateTaskResponse> Create([FromBody] CreateTaskRequest request, CancellationToken cancellationToken)
-    {
-        return await _taskService.Create(request, cancellationToken);
-    }
+	[HttpPost]
+	public async Task<CreateTaskResponse> Create([FromBody] CreateTaskRequest request, CancellationToken cancellationToken)
+	{
+		return await _taskService.Create(request, cancellationToken);
+	}
 
-    [HttpPost("search")]
-    public async Task<PagedList<SearchTaskResponse>> Search([FromBody] SearchTasksRequest request, CancellationToken cancellationToken)
-    {
-        return await _taskService.Search(request, cancellationToken);
-    }
+	[HttpPost("search")]
+	public async Task<PagedList<SearchTaskResponse>> Search([FromBody] SearchTasksRequest request, CancellationToken cancellationToken)
+	{
+		return await _taskService.Search(request, cancellationToken);
+	}
 
-    [HttpPut("{id:guid}")]
-    public async Task<UpdateTaskResponse> Update(
-        [FromRoute] Guid id,
-        [FromBody] UpdateTaskRequest request,
-        CancellationToken cancellationToken)
-    {
-        request.Id = id;
+	[HttpPut("{id:guid}")]
+	public async Task<UpdateTaskResponse> Update(
+		[FromRoute] Guid id,
+		[FromBody] UpdateTaskRequest request,
+		CancellationToken cancellationToken)
+	{
+		request.Id = id;
 
-        return await _taskService.Update(request, cancellationToken);
-    }
+		return await _taskService.Update(request, cancellationToken);
+	}
 
-    [HttpDelete("{id:guid}")]
-    public async System.Threading.Tasks.Task Delete([FromRoute] Guid id, CancellationToken cancellationToken)
-    {
-        var request = new DeleteTaskRequest
-        {
-            Id = id
-        };
+	[HttpDelete("{id:guid}")]
+	public async System.Threading.Tasks.Task Delete([FromRoute] Guid id, CancellationToken cancellationToken)
+	{
+		var request = new DeleteTaskRequest
+		{
+			Id = id
+		};
 
-        await _taskService.Delete(request, cancellationToken);
-    }
+		await _taskService.Delete(request, cancellationToken);
+	}
 }

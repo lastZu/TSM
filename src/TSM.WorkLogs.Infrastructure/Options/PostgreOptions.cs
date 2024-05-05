@@ -2,7 +2,7 @@
 
 public sealed class PostgreOptions
 {
-    public const string SectionName = "Postgre";
+	public const string SectionName = "Postgre";
 
-    public string ConnectionString { get; set; } = string.Empty;
+	public string ConnectionString { get; set; } = string.Empty;
 }

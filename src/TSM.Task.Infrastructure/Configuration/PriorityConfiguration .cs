@@ -6,28 +6,28 @@ using TSM.Task.Domain.Enums;
 
 namespace TSM.Task.Infrastructure.Configuration;
 
-class PriorityConfiguration : IEntityTypeConfiguration<Priority>
+public sealed class PriorityConfiguration : IEntityTypeConfiguration<Priority>
 {
-    public void Configure(EntityTypeBuilder<Priority> builder)
-    {
-        builder.ToTable("priority");
+	public void Configure(EntityTypeBuilder<Priority> builder)
+	{
+		builder.ToTable("priority");
 
-        builder.HasKey(p => p.Id);
+		builder.HasKey(p => p.Id);
 
-        builder.HasData(
-            GetDefaultPriorities()
-        );
-    }
+		builder.HasData(
+			GetDefaultPriorities()
+		);
+	}
 
-    private static IEnumerable<Priority> GetDefaultPriorities()
-    {
-        return new List<Priority>
-        {
-            new Priority { Id = (int) Priorities.High, Name = "Highest" },
+	private static IEnumerable<Priority> GetDefaultPriorities()
+	{
+		return new List<Priority>
+		{
+			new Priority { Id = (int) Priorities.High, Name = "Highest" },
 
-            new Priority { Id = (int) Priorities.Medium, Name = "Medium" },
+			new Priority { Id = (int) Priorities.Medium, Name = "Medium" },
 
-            new Priority { Id = (int) Priorities.Low, Name = "Low" },
-        };
-    }
+			new Priority { Id = (int) Priorities.Low, Name = "Low" },
+		};
+	}
 }

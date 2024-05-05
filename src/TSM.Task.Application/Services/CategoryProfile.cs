@@ -6,13 +6,13 @@ namespace TSM.Task.Application.Services;
 
 public class CategoryProfile : Profile
 {
-    public CategoryProfile()
-    {
-        MapCategoryDto();
-    }
+	public CategoryProfile()
+	{
+		MapCategoryDto();
+	}
 
-    private void MapCategoryDto()
-    {
-        CreateMap<Category, CategoryDto>();
-    }
+	private void MapCategoryDto()
+	{
+		CreateMap<Category, CategoryDto>();
+	}
 }

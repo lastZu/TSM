@@ -13,62 +13,62 @@ namespace TSM.WorkLogs.Application.Services;
 
 public sealed class WorkLogService : IWorkLogService
 {
-    private readonly WorkLogContext _workLogContext;
+	private readonly WorkLogContext _workLogContext;
 
-    private readonly DbSet<WorkLog> _workLogsSet;
+	private readonly DbSet<WorkLog> _workLogsSet;
 
-    private readonly IMapper _mapper;
+	private readonly IMapper _mapper;
 
-    public WorkLogService(WorkLogContext workLogContext, IMapper mapper)
-    {
-        _workLogContext = workLogContext;
-        _mapper = mapper;
+	public WorkLogService(WorkLogContext workLogContext, IMapper mapper)
+	{
+		_workLogContext = workLogContext;
+		_mapper = mapper;
 
-        _workLogsSet = _workLogContext.Set<WorkLog>();
-    }
+		_workLogsSet = _workLogContext.Set<WorkLog>();
+	}
 
-    public async Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken = default)
-    {
-        var workLogs = await _workLogsSet
-            .AsNoTracking()
-            .ToListAsync(cancellationToken);
+	public async Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken = default)
+	{
+		var workLogs = await _workLogsSet
+			.AsNoTracking()
+			.ToListAsync(cancellationToken);
 
-        return _mapper.Map<List<WorkLogResponse>>(workLogs);
-    }
+		return _mapper.Map<List<WorkLogResponse>>(workLogs);
+	}
 
-    public async Task<WorkLogByIdResponse> GetById(WorkLogByIdRequest request, CancellationToken cancellationToken = default)
-    {
-        var workLog = await _workLogsSet
-            .AsNoTracking()
-            .Where(workLog => workLog.Id == request.Id)
-            .FirstOrDefaultAsync(cancellationToken);
+	public async Task<WorkLogByIdResponse> GetById(WorkLogByIdRequest request, CancellationToken cancellationToken = default)
+	{
+		var workLog = await _workLogsSet
+			.AsNoTracking()
+			.Where(workLog => workLog.Id == request.Id)
+			.FirstOrDefaultAsync(cancellationToken);
 
-        return _mapper.Map<WorkLogByIdResponse>(workLog);
-    }
+		return _mapper.Map<WorkLogByIdResponse>(workLog);
+	}
 
-    public async Task<CreateWorkLogResponse> Create(CreateWorkLogRequest request, CancellationToken cancellationToken = default)
-    {
-        var workLog = _mapper.Map<WorkLog>(request);
+	public async Task<CreateWorkLogResponse> Create(CreateWorkLogRequest request, CancellationToken cancellationToken = default)
+	{
+		var workLog = _mapper.Map<WorkLog>(request);
 
-        await _workLogsSet.AddAsync(workLog, cancellationToken);
+		await _workLogsSet.AddAsync(workLog, cancellationToken);
 
-        await _workLogContext.SaveChangesAsync(cancellationToken);
+		await _workLogContext.SaveChangesAsync(cancellationToken);
 
-        return _mapper.Map<CreateWorkLogResponse>(workLog);
-    }
+		return _mapper.Map<CreateWorkLogResponse>(workLog);
+	}
 
-    public async Task<UpdateWorkLogResponse> Update(Guid id, UpdateWorkLogRequest request, CancellationToken cancellationToken = default)
-    {
-        var workLog = await _workLogsSet
-            .Where(workLog => workLog.Id == id)
-            .FirstOrDefaultAsync(cancellationToken);
+	public async Task<UpdateWorkLogResponse> Update(Guid id, UpdateWorkLogRequest request, CancellationToken cancellationToken = default)
+	{
+		var workLog = await _workLogsSet
+			.Where(workLog => workLog.Id == id)
+			.FirstOrDefaultAsync(cancellationToken);
 
-        _mapper.Map(request, workLog);
+		_mapper.Map(request, workLog);
 
-        _workLogsSet.Update(workLog);
+		_workLogsSet.Update(workLog);
 
-        await _workLogContext.SaveChangesAsync(cancellationToken);
+		await _workLogContext.SaveChangesAsync(cancellationToken);
 
-        return _mapper.Map<UpdateWorkLogResponse>(workLog);
-    }
+		return _mapper.Map<UpdateWorkLogResponse>(workLog);
+	}
 }

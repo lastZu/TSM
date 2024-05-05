@@ -6,13 +6,13 @@ namespace TSM.Task.Application.Services;
 
 public class PriorityProfile : Profile
 {
-    public PriorityProfile()
-    {
-        MapPriorityDto();
-    }
+	public PriorityProfile()
+	{
+		MapPriorityDto();
+	}
 
-    private void MapPriorityDto()
-    {
-        CreateMap<Priority, PriorityDto>();
-    }
+	private void MapPriorityDto()
+	{
+		CreateMap<Priority, PriorityDto>();
+	}
 }
