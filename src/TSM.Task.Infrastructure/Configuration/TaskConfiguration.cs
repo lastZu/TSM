@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace TSM.Task.Infrastructure.Configuration;
 
-class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
+internal sealed class TaskConfiguration : IEntityTypeConfiguration<Domain.Entities.Task>
 {
 	public void Configure(EntityTypeBuilder<Domain.Entities.Task> builder)
 	{

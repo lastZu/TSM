@@ -4,7 +4,7 @@ using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Infrastructure.Configuration;
 
-class TagConfiguration : IEntityTypeConfiguration<Tag>
+internal sealed class TagConfiguration : IEntityTypeConfiguration<Tag>
 {
 	public void Configure(EntityTypeBuilder<Tag> builder)
 	{

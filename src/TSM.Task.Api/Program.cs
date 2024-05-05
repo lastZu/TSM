@@ -19,6 +19,6 @@ internal class Program
 
 		await host.MigrateDatabase(CancellationToken.None);
 
-		host.Run();
+		await host.RunAsync();
 	}
 }

@@ -6,7 +6,7 @@ using TSM.Task.Domain.Enums;
 
 namespace TSM.Task.Infrastructure.Configuration;
 
-public sealed class PriorityConfiguration : IEntityTypeConfiguration<Priority>
+internal sealed class PriorityConfiguration : IEntityTypeConfiguration<Priority>
 {
 	public void Configure(EntityTypeBuilder<Priority> builder)
 	{
@@ -19,15 +19,15 @@ public sealed class PriorityConfiguration : IEntityTypeConfiguration<Priority>
 		);
 	}
 
-	private static IEnumerable<Priority> GetDefaultPriorities()
+	private static IReadOnlyList<Priority> GetDefaultPriorities()
 	{
-		return new List<Priority>
-		{
+		return
+		[
 			new Priority { Id = (int) Priorities.High, Name = "Highest" },
 
 			new Priority { Id = (int) Priorities.Medium, Name = "Medium" },
 
 			new Priority { Id = (int) Priorities.Low, Name = "Low" },
-		};
+		];
 	}
 }

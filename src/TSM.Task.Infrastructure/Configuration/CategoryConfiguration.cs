@@ -5,7 +5,7 @@ using TSM.Task.Domain.Entities;
 using TSM.Task.Domain.Enums;
 
 namespace TSM.Task.Infrastructure.Configuration;
-public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
+internal sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {
 	public void Configure(EntityTypeBuilder<Category> builder)
 	{
@@ -18,15 +18,15 @@ public sealed class CategoryConfiguration : IEntityTypeConfiguration<Category>
 		);
 	}
 
-	private static IEnumerable<Category> GetDefaultCategories()
+	private static IReadOnlyList<Category> GetDefaultCategories()
 	{
-		return new List<Category>
-		{
+		return
+		[
 			new Category { Id = (int) Categories.Bug, Name = "Something isn't working" },
 
 			new Category { Id = (int) Categories.Issue, Name = "New feature" },
 
 			new Category { Id = (int) Categories.Question, Name = "Further information is requested" },
-		};
+		];
 	}
 }
