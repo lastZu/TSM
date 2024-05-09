@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using TSM.Task.Api;
 using TSM.Task.Infrastructure.Extensions;
 
-internal class Program
+internal sealed class Program
 {
 	private static async Task Main(string[] args)
 	{

@@ -1,6 +1,6 @@
 namespace TSM.Task.Domain.Entities;
 
-public class Category
+public sealed class Category
 {
 	public byte Id { get; set; }
 

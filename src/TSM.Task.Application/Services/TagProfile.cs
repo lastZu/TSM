@@ -5,7 +5,7 @@ using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Application.Services;
 
-public class TagProfile : Profile
+internal sealed class TagProfile : Profile
 {
 	public TagProfile()
 	{

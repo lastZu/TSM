@@ -4,7 +4,7 @@ using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Application.Services;
 
-public class PriorityProfile : Profile
+internal sealed class PriorityProfile : Profile
 {
 	public PriorityProfile()
 	{

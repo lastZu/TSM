@@ -4,7 +4,7 @@ using TSM.WorkLogs.Domain.Entities;
 
 namespace TSM.WorkLogs.Infrastructure.Configuration;
 
-public sealed class WorkLogConfiguration : IEntityTypeConfiguration<WorkLog>
+internal sealed class WorkLogConfiguration : IEntityTypeConfiguration<WorkLog>
 {
 	public void Configure(EntityTypeBuilder<WorkLog> builder)
 	{

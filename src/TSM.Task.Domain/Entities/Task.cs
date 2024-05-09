@@ -2,7 +2,7 @@ using System;
 
 namespace TSM.Task.Domain.Entities;
 
-public class Task
+public sealed class Task
 {
 	public Guid Id { get; set; }
 	public string Title { get; set; }

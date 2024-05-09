@@ -4,7 +4,7 @@ using Microsoft.OpenApi.Models;
 
 namespace TSM.Task.Api.Extensions;
 
-public static class SwaggerExtensions
+internal static class SwaggerExtensions
 {
 	public static void AddTaskApiDocumentation(
 		this IServiceCollection service,

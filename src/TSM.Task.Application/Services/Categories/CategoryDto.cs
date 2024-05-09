@@ -1,6 +1,6 @@
 namespace TSM.Task.Application.Services.Categories;
 
-public class CategoryDto
+public sealed class CategoryDto
 {
 	public byte Id { get; set; }
 

@@ -2,7 +2,7 @@ using System;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Requests;
 
-public class CreateTaskRequest
+public sealed class CreateTaskRequest
 {
 	public string Title { get; set; }
 

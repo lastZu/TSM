@@ -13,7 +13,7 @@ using TSM.Task.Application.Extensions;
 
 namespace TSM.Task.Api;
 
-public class Startup
+internal sealed class Startup
 {
 	private const string AssemblyPrefix = "TSM.Task";
 

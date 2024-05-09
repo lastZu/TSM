@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Requests;
 
-public class SearchTasksRequest
+public sealed class SearchTasksRequest
 {
 	public ICollection<byte?> Categories { get; set; }
 

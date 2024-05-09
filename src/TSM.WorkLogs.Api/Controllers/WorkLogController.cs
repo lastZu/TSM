@@ -10,7 +10,7 @@ namespace TSM.WorkLogs.Api.Controllers;
 
 [ApiController]
 [Route("work-logs")]
-public sealed class WorkLogController : ControllerBase
+internal sealed class WorkLogController : ControllerBase
 {
 	private readonly IWorkLogService _workLogService;
 

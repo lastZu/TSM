@@ -4,7 +4,7 @@ using TSM.Task.Domain.Entities;
 
 namespace TSM.Task.Application.Services;
 
-public class CategoryProfile : Profile
+internal sealed class CategoryProfile : Profile
 {
 	public CategoryProfile()
 	{

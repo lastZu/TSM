@@ -5,7 +5,7 @@ using TSM.Task.Application.Services.Tags.Models.Responses;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Responses;
 
-public class TaskByIdResponse
+public sealed class TaskByIdResponse
 {
 	public Guid Id { get; set; }
 

@@ -4,7 +4,7 @@ using TSM.Task.Application.Services.Tasks.Models.Responses;
 
 namespace TSM.Task.Application.Services;
 
-public class TaskProfile : Profile
+internal sealed class TaskProfile : Profile
 {
 	public TaskProfile()
 	{

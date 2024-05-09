@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace TSM.Task.Application.Models;
 
-public class PagedList<T>
+public sealed class PagedList<T>
 {
 	public IReadOnlyList<T> Items { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace TSM.Task.Infrastructure;
 
-public class TaskContext : DbContext
+internal sealed class TaskContext : DbContext
 {
 	public TaskContext(DbContextOptions<TaskContext> options)
 		: base(options)

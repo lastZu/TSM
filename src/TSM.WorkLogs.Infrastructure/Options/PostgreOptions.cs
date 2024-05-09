@@ -1,6 +1,6 @@
 ﻿namespace TSM.WorkLogs.Infrastructure.Options;
 
-public sealed class PostgreOptions
+internal sealed class PostgreOptions
 {
 	public const string SectionName = "Postgre";
 

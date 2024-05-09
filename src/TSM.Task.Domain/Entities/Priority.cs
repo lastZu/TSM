@@ -1,6 +1,6 @@
 namespace TSM.Task.Domain.Entities;
 
-public class Priority
+public sealed class Priority
 {
 	public byte Id { get; set; }
 

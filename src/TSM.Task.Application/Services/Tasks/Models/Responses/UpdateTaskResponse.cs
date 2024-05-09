@@ -2,7 +2,7 @@ using System;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Responses;
 
-public class UpdateTaskResponse
+public sealed class UpdateTaskResponse
 {
 	public Guid Id { get; set; }
 

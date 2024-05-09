@@ -4,7 +4,7 @@ using TSM.WorkLogs.Domain.Entities;
 
 namespace TSM.WorkLogs.Application.Services;
 
-public sealed class WorkLogProfile : Profile
+internal sealed class WorkLogProfile : Profile
 {
 	public WorkLogProfile()
 	{
