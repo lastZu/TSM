@@ -9,10 +9,10 @@ namespace TSM.Task.Application.Services.Tasks;
 
 public interface ITaskService
 {
-	public Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken = default);
-	public Task<TaskByIdResponse> GetById(GetTaskByIdRequest request, CancellationToken cancellationToken = default);
-	public Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken = default);
-	public Task<PagedList<SearchTaskResponse>> Search(SearchTasksRequest request, CancellationToken cancellationToken = default);
-	public Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken = default);
-	public System.Threading.Tasks.Task Delete(DeleteTaskRequest request, CancellationToken cancellationToken = default);
+	public Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken);
+	public Task<TaskByIdResponse> GetById(GetTaskByIdRequest request, CancellationToken cancellationToken);
+	public Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken);
+	public Task<PagedList<SearchTaskResponse>> Search(SearchTasksRequest request, CancellationToken cancellationToken);
+	public Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken);
+	public System.Threading.Tasks.Task Delete(DeleteTaskRequest request, CancellationToken cancellationToken);
 }

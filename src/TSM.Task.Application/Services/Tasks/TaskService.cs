@@ -33,7 +33,7 @@ internal sealed class TaskService : ITaskService
 		_tasksSet = _taskContext.Set<TaskEntity>();
 	}
 
-	public async Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken = default)
+	public async Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken)
 	{
 		var tasks = await _tasksSet
 			.AsNoTracking()
@@ -45,7 +45,7 @@ internal sealed class TaskService : ITaskService
 		return _mapper.Map<List<TaskResponse>>(tasks);
 	}
 
-	public async Task<TaskByIdResponse> GetById(GetTaskByIdRequest request, CancellationToken cancellationToken = default)
+	public async Task<TaskByIdResponse> GetById(GetTaskByIdRequest request, CancellationToken cancellationToken)
 	{
 		var task = await _tasksSet
 			.AsNoTracking()
@@ -57,7 +57,7 @@ internal sealed class TaskService : ITaskService
 
 		return _mapper.Map<TaskByIdResponse>(task);
 	}
-	public async Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken = default)
+	public async Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken)
 	{
 		var task = _mapper.Map<TaskEntity>(request);
 
@@ -68,7 +68,7 @@ internal sealed class TaskService : ITaskService
 		return _mapper.Map<CreateTaskResponse>(task);
 	}
 
-	public async Task<PagedList<SearchTaskResponse>> Search(SearchTasksRequest request, CancellationToken cancellationToken = default)
+	public async Task<PagedList<SearchTaskResponse>> Search(SearchTasksRequest request, CancellationToken cancellationToken)
 	{
 		var categoriesIsEmpty = request.Categories is null;
 		var prioritiesIsEmpty = request.Priorities is null;
@@ -113,7 +113,7 @@ internal sealed class TaskService : ITaskService
 		};
 	}
 
-	public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken = default)
+	public async Task<UpdateTaskResponse> Update(UpdateTaskRequest request, CancellationToken cancellationToken)
 	{
 		var task = await _tasksSet
 			.Include(t => t.Category)
@@ -136,7 +136,7 @@ internal sealed class TaskService : ITaskService
 		return _mapper.Map<UpdateTaskResponse>(task);
 	}
 
-	public async System.Threading.Tasks.Task Delete(DeleteTaskRequest request, CancellationToken cancellationToken = default)
+	public async System.Threading.Tasks.Task Delete(DeleteTaskRequest request, CancellationToken cancellationToken)
 	{
 		var task = await _tasksSet
 			.Where(task => task.Id == request.Id)

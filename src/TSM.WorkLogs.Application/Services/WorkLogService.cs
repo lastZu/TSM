@@ -27,7 +27,7 @@ public sealed class WorkLogService : IWorkLogService
 		_workLogsSet = _workLogContext.Set<WorkLog>();
 	}
 
-	public async Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken = default)
+	public async Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken)
 	{
 		var workLogs = await _workLogsSet
 			.AsNoTracking()
@@ -36,7 +36,7 @@ public sealed class WorkLogService : IWorkLogService
 		return _mapper.Map<List<WorkLogResponse>>(workLogs);
 	}
 
-	public async Task<WorkLogByIdResponse> GetById(WorkLogByIdRequest request, CancellationToken cancellationToken = default)
+	public async Task<WorkLogByIdResponse> GetById(WorkLogByIdRequest request, CancellationToken cancellationToken)
 	{
 		var workLog = await _workLogsSet
 			.AsNoTracking()
@@ -46,7 +46,7 @@ public sealed class WorkLogService : IWorkLogService
 		return _mapper.Map<WorkLogByIdResponse>(workLog);
 	}
 
-	public async Task<CreateWorkLogResponse> Create(CreateWorkLogRequest request, CancellationToken cancellationToken = default)
+	public async Task<CreateWorkLogResponse> Create(CreateWorkLogRequest request, CancellationToken cancellationToken)
 	{
 		var workLog = _mapper.Map<WorkLog>(request);
 
@@ -57,7 +57,7 @@ public sealed class WorkLogService : IWorkLogService
 		return _mapper.Map<CreateWorkLogResponse>(workLog);
 	}
 
-	public async Task<UpdateWorkLogResponse> Update(Guid id, UpdateWorkLogRequest request, CancellationToken cancellationToken = default)
+	public async Task<UpdateWorkLogResponse> Update(Guid id, UpdateWorkLogRequest request, CancellationToken cancellationToken)
 	{
 		var workLog = await _workLogsSet
 			.Where(workLog => workLog.Id == id)

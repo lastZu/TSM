@@ -46,7 +46,7 @@ internal sealed class TagService : ITagService
 		return _mapper.Map<CreateTagResponse>(tag);
 	}
 
-	public async Task<UpdateTagResponse> Update(UpdateTagRequest request, CancellationToken cancellationToken = default)
+	public async Task<UpdateTagResponse> Update(UpdateTagRequest request, CancellationToken cancellationToken)
 	{
 		var tag = await _tagsSet
 			.Where(tag => tag.Id == request.Id)
@@ -66,7 +66,7 @@ internal sealed class TagService : ITagService
 		return _mapper.Map<UpdateTagResponse>(tag);
 	}
 
-	public async System.Threading.Tasks.Task Delete(DeleteTagRequest request, CancellationToken cancellationToken = default)
+	public async System.Threading.Tasks.Task Delete(DeleteTagRequest request, CancellationToken cancellationToken)
 	{
 		var tag = await _tagsSet
 			.Where(tag => tag.Id == request.Id)
