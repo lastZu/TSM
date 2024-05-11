@@ -2,11 +2,11 @@ using System;
 
 namespace TSM.Task.Application.Services.Tags.Models.Responses;
 
-public class UpdateTagResponse
+public record UpdateTagResponse
 {
-	public Guid Id { get; set; }
+	public Guid Id { get; init; }
 
-	public string Name { get; set; }
+	public string Name { get; init; }
 
-	public string Description { get; set; }
+	public string Description { get; init; }
 }

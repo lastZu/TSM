@@ -1,8 +1,8 @@
 namespace TSM.Task.Application.Services.Priorities;
 
-public sealed class PriorityDto
+public sealed record PriorityDto
 {
-	public byte Id { get; set; }
+	public byte Id { get; init; }
 
-	public string Name { get; set; }
+	public string Name { get; init; }
 }

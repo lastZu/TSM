@@ -2,15 +2,15 @@
 
 namespace TSM.WorkLogs.Application.Services.WorkLogs;
 
-public sealed class WorkLogByIdResponse
+public sealed record WorkLogByIdResponse
 {
-	public Guid Id { get; set; }
+	public Guid Id { get; init; }
 
-	public Guid TaskId { get; set; }
+	public Guid TaskId { get; init; }
 
-	public int Time { get; set; }
+	public int Time { get; init; }
 
-	public string Comment { get; set; }
+	public string Comment { get; init; }
 
-	public DateTime Date { get; set; }
+	public DateTime Date { get; init; }
 }

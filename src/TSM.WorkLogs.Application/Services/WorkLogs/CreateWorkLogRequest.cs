@@ -2,13 +2,13 @@
 
 namespace TSM.WorkLogs.Application.Services.WorkLogs;
 
-public sealed class CreateWorkLogRequest
+public sealed record CreateWorkLogRequest
 {
-	public Guid TaskId { get; set; }
+	public Guid TaskId { get; init; }
 
-	public int Time { get; set; }
+	public int Time { get; init; }
 
-	public string Comment { get; set; }
+	public string Comment { get; init; }
 
-	public DateTime Date { get; set; }
+	public DateTime Date { get; init; }
 }
