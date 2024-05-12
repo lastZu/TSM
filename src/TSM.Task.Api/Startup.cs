@@ -42,7 +42,7 @@ internal sealed class Startup
 		services.AddApplicationServices();
 	}
 
-	public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+	public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 	{
 		if (env.IsDevelopment())
 		{

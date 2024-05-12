@@ -12,7 +12,7 @@ namespace TSM.Task.Api.Controllers;
 
 [ApiController]
 [Route("tasks")]
-internal sealed class TaskController : ControllerBase
+public sealed class TaskController : ControllerBase
 {
 	private readonly ITaskService _taskService;
 

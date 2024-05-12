@@ -10,7 +10,7 @@ namespace TSM.Task.Api.Controllers;
 
 [ApiController]
 [Route("tags")]
-internal sealed class TagController : ControllerBase
+public sealed class TagController : ControllerBase
 {
 	private readonly ITagService _tagService;
 
