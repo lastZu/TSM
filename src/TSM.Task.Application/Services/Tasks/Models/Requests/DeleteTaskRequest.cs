@@ -2,7 +2,7 @@ using System;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Requests;
 
-public sealed class DeleteTaskRequest
+public sealed record DeleteTaskRequest
 {
-	public Guid Id { get; set; }
+	public Guid Id { get; init; }
 }

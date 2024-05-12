@@ -2,13 +2,13 @@ using System.Collections.Generic;
 
 namespace TSM.Task.Application.Models;
 
-public sealed class PagedList<T>
+public sealed record PagedList<T>
 {
-	public IReadOnlyList<T> Items { get; set; }
+	public IReadOnlyList<T> Items { get; init; }
 
-	public int Page { get; set; }
+	public int Page { get; init; }
 
-	public int Size { get; set; }
+	public int Size { get; init; }
 
-	public int TotalCount { get; set; }
+	public int TotalCount { get; init; }
 }

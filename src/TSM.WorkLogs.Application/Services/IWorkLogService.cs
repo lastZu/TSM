@@ -10,5 +10,5 @@ public interface IWorkLogService
 	public Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken);
 	public Task<WorkLogByIdResponse> GetById(WorkLogByIdRequest request, CancellationToken cancellationToken);
 	public Task<CreateWorkLogResponse> Create(CreateWorkLogRequest request, CancellationToken cancellationToken);
-	public Task<UpdateWorkLogResponse> Update(System.Guid id, UpdateWorkLogRequest request, CancellationToken cancellationToken);
+	public Task<UpdateWorkLogResponse> Update(UpdateWorkLogRequest request, CancellationToken cancellationToken);
 }

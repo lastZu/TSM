@@ -2,19 +2,19 @@ using System;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Requests;
 
-public sealed class UpdateTaskRequest
+public sealed record UpdateTaskRequest
 {
-	public Guid Id { get; set; }
+	public Guid Id { get; init; }
 
-	public string Title { get; set; }
+	public string Title { get; init; }
 
-	public DateTime? Deadline { get; set; }
+	public DateTime? Deadline { get; init; }
 
-	public string Comment { get; set; }
+	public string Comment { get; init; }
 
-	public byte? CategoryId { get; set; }
+	public byte? CategoryId { get; init; }
 
-	public byte? PriorityId { get; set; }
+	public byte? PriorityId { get; init; }
 
-	public Guid? TagId { get; set; }
+	public Guid? TagId { get; init; }
 }

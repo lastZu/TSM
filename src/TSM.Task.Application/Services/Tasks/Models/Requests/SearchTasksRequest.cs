@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Requests;
 
-public sealed class SearchTasksRequest
+public sealed record SearchTasksRequest
 {
-	public ICollection<byte?> Categories { get; set; }
+	public ICollection<byte?> Categories { get; init; }
 
-	public ICollection<byte?> Priorities { get; set; }
+	public ICollection<byte?> Priorities { get; init; }
 
-	public ICollection<Guid?> Tags { get; set; }
+	public ICollection<Guid?> Tags { get; init; }
 
-	public DateTime? DeadlineBy { get; set; }
+	public DateTime? DeadlineBy { get; init; }
 
-	public int? Page { get; set; }
+	public int? Page { get; init; }
 
-	public int? Size { get; set; }
+	public int? Size { get; init; }
 }

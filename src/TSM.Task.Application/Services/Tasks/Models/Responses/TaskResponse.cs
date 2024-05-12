@@ -5,19 +5,19 @@ using TSM.Task.Application.Services.Tags.Models.Responses;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Responses;
 
-public sealed class TaskResponse
+public sealed record TaskResponse
 {
-	public Guid Id { get; set; }
+	public Guid Id { get; init; }
 
-	public string Title { get; set; }
+	public string Title { get; init; }
 
-	public DateTime? Deadline { get; set; }
+	public DateTime? Deadline { get; init; }
 
-	public string Comment { get; set; }
+	public string Comment { get; init; }
 
-	public CategoryDto Category { get; set; }
+	public CategoryDto Category { get; init; }
 
-	public PriorityDto Priority { get; set; }
+	public PriorityDto Priority { get; init; }
 
-	public TagDto Tag { get; set; }
+	public TagDto Tag { get; init; }
 }

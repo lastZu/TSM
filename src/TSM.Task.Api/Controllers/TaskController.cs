@@ -50,14 +50,11 @@ internal sealed class TaskController : ControllerBase
 		return await _taskService.Search(request, cancellationToken);
 	}
 
-	[HttpPut("{id:guid}")]
+	[HttpPut]
 	public async Task<UpdateTaskResponse> Update(
-		[FromRoute] Guid id,
 		[FromBody] UpdateTaskRequest request,
 		CancellationToken cancellationToken)
 	{
-		request.Id = id;
-
 		return await _taskService.Update(request, cancellationToken);
 	}
 

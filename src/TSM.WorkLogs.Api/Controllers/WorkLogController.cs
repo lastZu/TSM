@@ -42,12 +42,11 @@ internal sealed class WorkLogController : ControllerBase
 		return _workLogService.Create(request, cancellationToken);
 	}
 
-	[HttpPut("{id:guid}")]
+	[HttpPut]
 	public Task<UpdateWorkLogResponse> Update(
-		[FromRoute] Guid id,
 		[FromBody] UpdateWorkLogRequest request,
 		CancellationToken cancellationToken)
 	{
-		return _workLogService.Update(id, request, cancellationToken);
+		return _workLogService.Update(request, cancellationToken);
 	}
 }

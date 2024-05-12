@@ -2,19 +2,19 @@ using System;
 
 namespace TSM.Task.Application.Services.Tasks.Models.Responses;
 
-public sealed class UpdateTaskResponse
+public sealed record UpdateTaskResponse
 {
-	public Guid Id { get; set; }
+	public Guid Id { get; init; }
 
-	public string Title { get; set; }
+	public string Title { get; init; }
 
-	public DateTime? Deadline { get; set; }
+	public DateTime? Deadline { get; init; }
 
-	public string Comment { get; set; }
+	public string Comment { get; init; }
 
-	public string Category { get; set; }
+	public string Category { get; init; }
 
-	public string Priority { get; set; }
+	public string Priority { get; init; }
 
-	public string Tag { get; set; }
+	public string Tag { get; init; }
 }

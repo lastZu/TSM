@@ -57,10 +57,10 @@ public sealed class WorkLogService : IWorkLogService
 		return _mapper.Map<CreateWorkLogResponse>(workLog);
 	}
 
-	public async Task<UpdateWorkLogResponse> Update(Guid id, UpdateWorkLogRequest request, CancellationToken cancellationToken)
+	public async Task<UpdateWorkLogResponse> Update(UpdateWorkLogRequest request, CancellationToken cancellationToken)
 	{
 		var workLog = await _workLogsSet
-			.Where(workLog => workLog.Id == id)
+			.Where(workLog => workLog.Id == request.Id)
 			.FirstOrDefaultAsync(cancellationToken);
 
 		_mapper.Map(request, workLog);
