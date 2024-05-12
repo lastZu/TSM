@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <ProjectReference Include="../TSM.TaskManager.Domain/TSM.TaskManager.Domain.csproj" />
+    <ProjectReference Include="../TSM.TaskManager.Infrastructure/TSM.TaskManager.Infrastructure.csproj" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models/" />
+  </ItemGroup>
+
+
+
+</Project>
