@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TSM.WorkLog.Application.Services;
-using TSM.WorkLog.Application.Services.WorkLogEntity;
 using TSM.WorkLog.Application.Services.WorkLogs;
 
 namespace TSM.WorkLog.Api.Controllers;
