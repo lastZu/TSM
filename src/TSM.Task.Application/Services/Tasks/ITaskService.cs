@@ -9,7 +9,7 @@ namespace TSM.Task.Application.Services.Tasks;
 
 public interface ITaskService
 {
-	public Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken);
+	public Task<IReadOnlyList<TaskResponse>> GetAll(CancellationToken cancellationToken);
 	public Task<TaskByIdResponse> GetById(GetTaskByIdRequest request, CancellationToken cancellationToken);
 	public Task<CreateTaskResponse> Create(CreateTaskRequest request, CancellationToken cancellationToken);
 	public Task<PagedList<SearchTaskResponse>> Search(SearchTasksRequest request, CancellationToken cancellationToken);

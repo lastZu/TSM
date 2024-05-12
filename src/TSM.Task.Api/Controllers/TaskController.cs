@@ -22,7 +22,7 @@ internal sealed class TaskController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken)
+	public async Task<IReadOnlyList<TaskResponse>> GetAll(CancellationToken cancellationToken)
 	{
 		return await _taskService.GetAll(cancellationToken);
 	}

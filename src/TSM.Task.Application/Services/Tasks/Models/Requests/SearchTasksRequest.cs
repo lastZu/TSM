@@ -5,11 +5,11 @@ namespace TSM.Task.Application.Services.Tasks.Models.Requests;
 
 public sealed record SearchTasksRequest
 {
-	public ICollection<byte?> Categories { get; init; }
+	public IReadOnlyList<byte?> Categories { get; init; }
 
-	public ICollection<byte?> Priorities { get; init; }
+	public IReadOnlyList<byte?> Priorities { get; init; }
 
-	public ICollection<Guid?> Tags { get; init; }
+	public IReadOnlyList<Guid?> Tags { get; init; }
 
 	public DateTime? DeadlineBy { get; init; }
 

@@ -27,13 +27,13 @@ public sealed class WorkLogService : IWorkLogService
 		_workLogsSet = _workLogContext.Set<WorkLog>();
 	}
 
-	public async Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken)
+	public async Task<IReadOnlyList<WorkLogResponse>> GetAll(CancellationToken cancellationToken)
 	{
 		var workLogs = await _workLogsSet
 			.AsNoTracking()
 			.ToListAsync(cancellationToken);
 
-		return _mapper.Map<List<WorkLogResponse>>(workLogs);
+		return _mapper.Map<IReadOnlyList<WorkLogResponse>>(workLogs);
 	}
 
 	public async Task<WorkLogByIdResponse> GetById(WorkLogByIdRequest request, CancellationToken cancellationToken)

@@ -33,7 +33,7 @@ internal sealed class TaskService : ITaskService
 		_tasksSet = _taskContext.Set<TaskEntity>();
 	}
 
-	public async Task<List<TaskResponse>> GetAll(CancellationToken cancellationToken)
+	public async Task<IReadOnlyList<TaskResponse>> GetAll(CancellationToken cancellationToken)
 	{
 		var tasks = await _tasksSet
 			.AsNoTracking()
@@ -42,7 +42,7 @@ internal sealed class TaskService : ITaskService
 			.Include(task => task.Tag)
 			.ToListAsync(cancellationToken);
 
-		return _mapper.Map<List<TaskResponse>>(tasks);
+		return _mapper.Map<IReadOnlyList<TaskResponse>>(tasks);
 	}
 
 	public async Task<TaskByIdResponse> GetById(GetTaskByIdRequest request, CancellationToken cancellationToken)

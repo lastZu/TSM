@@ -20,7 +20,7 @@ internal sealed class WorkLogController : ControllerBase
 	}
 
 	[HttpGet]
-	public Task<List<WorkLogResponse>> GetAll(CancellationToken cancellationToken)
+	public Task<IReadOnlyList<WorkLogResponse>> GetAll(CancellationToken cancellationToken)
 	{
 		return _workLogService.GetAll(cancellationToken);
 	}
