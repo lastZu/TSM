@@ -15,7 +15,7 @@ namespace TSM.TaskManager.Api;
 
 internal sealed class Startup
 {
-	private const string AssemblyPrefix = "TSM.Task";
+	private const string AssemblyPrefix = "TSM.TaskManager";
 
 	public IConfiguration Configuration { get; }
 

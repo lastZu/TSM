@@ -27,9 +27,11 @@ internal sealed class Startup
 
 	public void ConfigureServices(IServiceCollection services)
 	{
-		services.AddInfrastructureReferences(Configuration);
+		services.AddMvcCore()
+			.AddApiExplorer()
+			.AddControllersAsServices();
 
-		services.AddTransient<IWorkLogService, WorkLogService>();
+		services.AddAutoMapper(AssemblyPrefix);
 
 		services.AddSwaggerGen(option =>
 		{
@@ -44,11 +46,9 @@ internal sealed class Startup
 			option.SwaggerDoc(version, openApiInfo);
 		});
 
-		services.AddMvcCore()
-			.AddApiExplorer()
-			.AddControllersAsServices();
+		services.AddInfrastructureReferences(Configuration);
 
-		services.AddAutoMapper(AssemblyPrefix);
+		services.AddTransient<IWorkLogService, WorkLogService>();
 	}
 
 	public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
